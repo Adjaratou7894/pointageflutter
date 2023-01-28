@@ -22,13 +22,15 @@ class _SplashState extends State<Splash> {
               image: DecorationImage(
                   image: AssetImage("assets/images/flash.png"),
                   fit: BoxFit.cover)),
-          child: const Text(
+
+          child: Text(
             'Bienvenue',
-            style: TextStyle(
-              fontSize: 50,
-              fontWeight: FontWeight.bold,
-              color: Colors.white,
-              fontFamily: 'DayRoman',
+            style: GoogleFonts.poppins(
+              textStyle: const TextStyle(
+                fontSize: 50,
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+              ),
             ),
           ),
         ),

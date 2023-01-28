@@ -80,6 +80,7 @@ class _ConnexionState extends State<Connexion> {
                 // color: Colors.blue,
                 decoration: const BoxDecoration(
                   color: Colors.white,
+
                   // borderRadius: BorderRadius.circular(10.0),
                   borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(20),
@@ -95,7 +96,8 @@ class _ConnexionState extends State<Connexion> {
                 ),
                 child: TextFormField(
                   decoration: const InputDecoration(
-                    border: OutlineInputBorder(),
+                    border: InputBorder.none,
+                    // border: OutlineInputBorder(),
                     labelStyle: TextStyle(
                       fontSize: 20,
                       color: Colors.black45,

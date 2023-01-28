@@ -22,7 +22,7 @@ class _PremierSplashState extends State<PremierSplash> {
     // TODO: implement initState
     super.initState();
 
-    Future.delayed(const Duration(seconds: 1)).then((value) {
+    Future.delayed(const Duration(seconds: 5)).then((value) {
       Navigator.of(context).pushReplacement(
         CupertinoPageRoute(
           builder: (context) => const Splash(),
