@@ -14,11 +14,11 @@ class _AccueilState extends State<Accueil> {
     double hauteur = MediaQuery.of(context).size.height;
     double largeur = MediaQuery.of(context).size.width;
     return Scaffold(
-      backgroundColor: Colors.orange,
+      backgroundColor: Color(0xFFF58220),
       body: Column(
         children: [
           Container(
-            color: Colors.orange,
+            color: Color(0xFFF58220),
             height: 50,
           ),
           Expanded(
@@ -37,10 +37,6 @@ class _AccueilState extends State<Accueil> {
                 height: 80,
                 // width: 20,
                 // color: Colors.blueAccent,
-                // decoration: BoxDecoration(
-                //   color: Colors.white,
-                //   borderRadius: BorderRadius.circular(10.0),
-                // ),
 
                 child: Row(
                   children: [
@@ -51,11 +47,15 @@ class _AccueilState extends State<Accueil> {
                         color: Color(0xFFF4F4F4),
                         width: largeur * 0.5,
                         height: hauteur * 0.06,
+                        // decoration: BoxDecoration(
+                        //   color: Colors.white,
+                        //   borderRadius: BorderRadius.circular(10.0),
+                        // ),
 
                         child: Row(
                           children: [
                             CircleAvatar(
-                              backgroundColor: Colors.orange,
+                              backgroundColor: Color(0xFFF58220),
                               radius: 16.0,
                             ),
                             SizedBox(
@@ -77,25 +77,40 @@ class _AccueilState extends State<Accueil> {
                     Expanded(
                       child: Container(
                         alignment: Alignment.centerRight,
-                        child: IconButton(
-                          iconSize: 72,
-                          icon: const Icon(Icons.favorite),
-                          onPressed: () {
-                            // ...
-                          },
+                        // margin: EdgeInsets.only(left: 20),
+
+                        // child: IconButton(
+                        //   iconSize: 72,
+                        //   icon: const Icon(Icons.favorite),
+                        //   onPressed: () {
+                        //     // ...
+                        //   },
+                        // ),
+
+                        child: ElevatedButton.icon(
+                          style: ButtonStyle(
+                            backgroundColor:
+                                MaterialStateProperty.all(Color(0xFFF58220)),
+                          ),
+                          onPressed: () {},
+                          icon: Icon(
+                            // <-- Icon
+                            Icons.notifications,
+                            size: 30.0,
+                          ),
+                          label: Text(''), // <-- Text
                         ),
                       ),
+                    ),
+                    SizedBox(
+                      width: largeur * 0.05,
                     )
                   ],
                 ),
               ),
               Container(
-                // margin: const EdgeInsets.only(top: 10),
                 margin: EdgeInsets.all(20),
                 height: 250,
-                // width: 20,
-                // color: Colors.greenAccent,
-
                 decoration: BoxDecoration(
                   color: Colors.orange,
                   borderRadius: BorderRadius.circular(10.0),
@@ -393,7 +408,7 @@ class _AccueilState extends State<Accueil> {
                               child: Container(
                                 // color: Colors.blue,
                                 child: const CircleAvatar(
-                                  radius: 30,
+                                  radius: 25,
                                   backgroundColor: Color(0xFFF58220),
                                   child: ImageIcon(
                                       color: Colors.white,
@@ -406,7 +421,7 @@ class _AccueilState extends State<Accueil> {
                                 child: const Text(
                                   "Pour retard",
                                   style: TextStyle(
-                                    fontSize: 10,
+                                    fontSize: 15,
                                     fontWeight: FontWeight.bold,
                                     color: Colors.black,
                                     fontFamily: 'DayRoman',
@@ -453,7 +468,7 @@ class _AccueilState extends State<Accueil> {
                               child: Container(
                                 // color: Colors.blue,
                                 child: const CircleAvatar(
-                                  radius: 30,
+                                  radius: 25,
                                   backgroundColor: Color(0xFF2A528F),
                                   child: ImageIcon(
                                       color: Colors.white,
@@ -516,7 +531,7 @@ class _AccueilState extends State<Accueil> {
                               child: Container(
                                 // color: Colors.blue,
                                 child: const CircleAvatar(
-                                  radius: 30,
+                                  radius: 25,
                                   backgroundColor: Colors.black,
                                   child: ImageIcon(
                                       color: Colors.white,
