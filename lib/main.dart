@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pointageflutter/accueil.dart';
+import 'package:pointageflutter/pointage.dart';
 import 'package:pointageflutter/premiersplashscreen.dart';
 import 'package:pointageflutter/profil.dart';
 import 'package:pointageflutter/splashscreen.dart';
@@ -19,7 +20,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
+      title: 'ODC Pointeur',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
@@ -27,11 +28,11 @@ class MyApp extends StatelessWidget {
       // home: const PremierSplash(),
       // home: const Connexion(),
       // home: const Accueil(),
-      // home: PopupPointage(),
+      // home: const Pointage(),
 
-      // home: MyNavigationBar(),
+      home: MyNavigationBar(),
       // home: Notifications(),
-      home: const Profil(),
+      // home: const Profil(),
     );
   }
 }

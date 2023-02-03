@@ -104,12 +104,12 @@ class _ConnexionState extends State<Connexion> {
                     ),
                     labelText: 'Veuillez saisir votre username',
                   ),
-                  // validator: (value) {
-                  //   if (value.isEmpty) {
-                  //     return 'Entrez votre nom';
-                  //   }
-                  //   return null;
-                  // },
+                  validator: (String? value) {
+                    if (value == null || value.isEmpty) {
+                      return 'svp veuillez saisir votre username';
+                    }
+                    return null;
+                  },
                 ),
               ),
               const SizedBox(height: 30.0),
@@ -139,12 +139,12 @@ class _ConnexionState extends State<Connexion> {
                     ),
                     labelText: 'Veuillez saisir votre mot de passe',
                   ),
-                  // validator: (value) {
-                  //   if (value.isEmpty) {
-                  //     return 'Entrez votre nom';
-                  //   }
-                  //   return null;
-                  // },
+                  validator: (String? value) {
+                    if (value == null || value.isEmpty) {
+                      return 'svp veuillez saisir password';
+                    }
+                    return null;
+                  },
                 ),
               ),
               const SizedBox(height: 20.0),

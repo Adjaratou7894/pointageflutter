@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:pointageflutter/notification.dart';
 
 class Accueil extends StatefulWidget {
   const Accueil({super.key});
@@ -92,7 +93,12 @@ class _AccueilState extends State<Accueil> {
                             backgroundColor:
                                 MaterialStateProperty.all(Color(0xFFF58220)),
                           ),
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => Notifications()));
+                          },
                           icon: Icon(
                             // <-- Icon
                             Icons.notifications,

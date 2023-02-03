@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:pointageflutter/accueil.dart';
 
 class Notifications extends StatefulWidget {
   const Notifications({super.key});
@@ -20,7 +21,9 @@ class _NotificationsState extends State<Notifications> {
           backgroundColor: Color(0xFFF58220),
           leading: IconButton(
             icon: Icon(Icons.arrow_back),
-            onPressed: () {/* implémentation de la navigation */},
+            onPressed: () {
+              Navigator.pop(context);
+            },
           ),
           // title: Text("Notification"),
           title: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
@@ -146,19 +149,20 @@ class _NotificationsState extends State<Notifications> {
                                   //       fontSize: 20.0,
                                   //     ))),
                                   Expanded(
-                                      child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: <Widget>[
-                                      Text(
-                                          "Votre formatrice a validée votre demande de permission ",
-                                          // textAlign: TextAlign.center,
-                                          style: GoogleFonts.poppins(
-                                              textStyle: const TextStyle(
-                                            fontSize: 14.0,
-                                          ))),
-                                    ],
-                                  )),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: <Widget>[
+                                        Text(
+                                            "Votre formatrice a validée votre demande de permission ",
+                                            // textAlign: TextAlign.center,
+                                            style: GoogleFonts.poppins(
+                                                textStyle: const TextStyle(
+                                              fontSize: 14.0,
+                                            ))),
+                                      ],
+                                    ),
+                                  ),
                                 ],
                               )
                             ],
