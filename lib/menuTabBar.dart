@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:pointageflutter/accueil.dart';
 import 'package:pointageflutter/connexion.dart';
@@ -5,6 +7,8 @@ import 'package:pointageflutter/pointage.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pointageflutter/profil.dart';
+import 'package:geolocator/geolocator.dart';
+import 'dart:async';
 
 import 'historiqueDemande.dart';
 
@@ -16,7 +20,11 @@ class MyNavigationBar extends StatefulWidget {
 }
 
 class _MyNavigationBarState extends State<MyNavigationBar> {
+  final Geolocator geolocator = Geolocator();
+  late Position _currentPosition;
+  late String _currentAddress;
   int _selectedIndex = 0;
+
   // static const List<Widget> _widgetOptions = <Widget>[
   //   Text('Accueil',
   //       style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold)),
@@ -32,14 +40,11 @@ class _MyNavigationBarState extends State<MyNavigationBar> {
   //     _selectedIndex = index;
   //   });
   // }
+
   void _onItemTapped(int index) {
     setState(() {
       if (index == 1) {
-        print(index);
         showFancyCustomDialog(context);
-      }
-      if (index == 4) {
-        const Profil();
       }
       _selectedIndex = index;
     });
@@ -109,7 +114,59 @@ class _MyNavigationBarState extends State<MyNavigationBar> {
     );
   }
 }
+// la methode  pour verifier la geolocation de l'apprenant
 
+void _verificationgeolocation(BuildContext context) async {
+  // _getCurrentLocation();
+  var geolocator;
+  var _currentPosition = await geolocator.getCurrentPosition(
+      desiredAccuracy: LocationAccuracy.high);
+
+  double OdcLatitude = 12.654200;
+  double OdcLongitude = -7.998900;
+  // var _currentPosition;
+  double latitudeDiff = _currentPosition.latitude - OdcLatitude;
+  double longitudeDiff = _currentPosition.longitude - OdcLongitude;
+  double distanceInMeters =
+      sqrt(latitudeDiff * latitudeDiff + longitudeDiff * longitudeDiff);
+
+  print('-------------------distance In Meters------------------');
+  print(distanceInMeters);
+  if (distanceInMeters <= 100) {
+    showFancyCustomDialog(context);
+  } else {
+    _showOutOfRangeDialog();
+  }
+}
+// void verification(BuildContext context) {
+//   var test;
+//   if (test <= 100) {
+//     showFancyCustomDialog(context);
+//   } else {
+//     _showOutOfRangeDialog();
+//   }
+// }
+
+_getCurrentLocation() async {
+  var geolocator;
+  var _currentPosition = await geolocator.getCurrentPosition(
+      desiredAccuracy: LocationAccuracy.high);
+}
+
+_showOutOfRangeDialog() {
+  var context;
+  showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Error'),
+          content: Text(
+              'Veuillez être dans les locaux Orange Digital Center pour vous pointez .'),
+        );
+      });
+}
+
+// Popup pour le pointage contenant l'heure arrivee et de depart
 void showFancyCustomDialog(BuildContext context) {
   double hauteur = MediaQuery.of(context).size.height;
   double largeur = MediaQuery.of(context).size.width;

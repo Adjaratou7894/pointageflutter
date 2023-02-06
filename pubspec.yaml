@@ -40,6 +40,13 @@ dependencies:
   font_awesome_flutter: ^10.3.0
   google_fonts: ^3.0.1
   rflutter_alert: ^1.0.2
+  # google_maps_flutter: ^2.2.3
+  # geolocator: ^9.0.2
+  geolocator: ^7.0.0
+  location: ^2.3.5
+  #dependence provider pour integration(databinding)
+  provider: ^6.0.5
+  http: ^0.13.5
 
 dev_dependencies:
   flutter_test:

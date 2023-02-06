@@ -5,6 +5,7 @@ import 'package:pointageflutter/premiersplashscreen.dart';
 import 'package:pointageflutter/profil.dart';
 import 'package:pointageflutter/splashscreen.dart';
 
+import 'accueilPrincipale.dart';
 import 'connexion.dart';
 import 'menuTabBar.dart';
 import 'notification.dart';
@@ -24,13 +25,14 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      //home: const Splash(),
+      // home: const Splash(),
       // home: const PremierSplash(),
       // home: const Connexion(),
       // home: const Accueil(),
       // home: const Pointage(),
+      home: const AccueilPrincipale(),
 
-      home: MyNavigationBar(),
+      // home: MyNavigationBar(),
       // home: Notifications(),
       // home: const Profil(),
     );

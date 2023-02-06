@@ -1,5 +1,7 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:pointageflutter/connexion.dart';
 
 class Splash extends StatefulWidget {
   const Splash({super.key});
@@ -9,6 +11,23 @@ class Splash extends StatefulWidget {
 }
 
 class _SplashState extends State<Splash> {
+  @override
+  void initState() {
+    //on recupère le user courant avec le provider
+    //final user = Provider.of<AppUser>(context);
+    // ignore: todo
+    // TODO: implement initState
+    super.initState();
+
+    Future.delayed(const Duration(seconds: 5)).then((value) {
+      Navigator.of(context).pushReplacement(
+        CupertinoPageRoute(
+          builder: (context) => const Connexion(),
+        ),
+      );
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
