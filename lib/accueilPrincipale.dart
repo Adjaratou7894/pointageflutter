@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pointageflutter/notification.dart';
+import 'package:google_fonts/google_fonts.dart';
+
+import 'menu.dart';
 
 class AccueilPrincipale extends StatefulWidget {
   const AccueilPrincipale({super.key});
@@ -62,15 +65,14 @@ class _AccueilPrincipaleState extends State<AccueilPrincipale> {
                             SizedBox(
                               width: largeur * 0.02,
                             ),
-                            Text(
-                              'Kalanso',
-                              style: TextStyle(
-                                fontSize: 30,
-                                // fontWeight: FontWeight.bold,
-                                color: Colors.black,
-                                fontFamily: 'DayRoman',
-                              ),
-                            )
+                            Text('Kalanso',
+                                style: GoogleFonts.poppins(
+                                  textStyle: const TextStyle(
+                                    fontSize: 30,
+                                    // fontWeight: FontWeight.bold,
+                                    color: Colors.black,
+                                  ),
+                                ))
                           ],
                         ),
                       ),
@@ -143,14 +145,14 @@ class _AccueilPrincipaleState extends State<AccueilPrincipale> {
                           Container(
                             alignment: Alignment.centerLeft,
                             margin: const EdgeInsets.only(top: 20),
-                            child: const Text(
-                              'Statistique: Durée de la formation',
-                              style: TextStyle(
-                                fontSize: 20,
-                                color: Colors.white,
-                                fontFamily: 'DayRoman',
-                              ),
-                            ),
+                            child: Text('Statistique: Durée de la formation',
+                                style: GoogleFonts.poppins(
+                                  textStyle: const TextStyle(
+                                    fontSize: 18,
+                                    color: Colors.white,
+                                    // fontWeight: FontWeight.bold,
+                                  ),
+                                )),
                           ),
                           const SizedBox(
                             height: 5,
@@ -417,40 +419,52 @@ class _AccueilPrincipaleState extends State<AccueilPrincipale> {
                             Container(
                               margin: EdgeInsets.only(top: 15),
                               child: CircleAvatar(
+                                backgroundColor: Color(0xFFF58220),
                                 radius: 40,
-                                backgroundColor: Colors.black,
-                                child: ImageIcon(
-                                    color: Colors.white,
-                                    AssetImage("assets/images/retard.png")),
+                                child: CircleAvatar(
+                                  radius: 35,
+                                  backgroundColor: Colors.black,
+                                  child: Container(
+                                    alignment: Alignment.center,
+                                    height: hauteur * .9,
+                                    width: largeur * .95,
+                                    child: ImageIcon(
+                                        color: Colors.white,
+                                        AssetImage("assets/images/local.png")),
+                                  ),
+                                ),
                               ),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               width: 20,
                             ),
                             Container(
-                              decoration: BoxDecoration(
+                              margin: const EdgeInsets.only(top: 22),
+                              decoration: const BoxDecoration(
                                 boxShadow: [
                                   BoxShadow(
-                                    color: Colors.black45.withOpacity(0.3),
-                                    blurRadius: 10,
-                                    offset: Offset(0, 0),
+                                    color: Colors.black26,
+                                    offset: Offset(0, -2),
+                                    blurRadius: 5,
                                   ),
                                 ],
                               ),
                               child: ElevatedButton(
                                 style: ButtonStyle(
-                                  backgroundColor:
-                                      MaterialStateProperty.all(Colors.grey),
+                                  backgroundColor: MaterialStateProperty.all(
+                                      Color(0xFFF4F4F4)),
                                 ),
                                 onPressed: () {
-                                  // if (_formKey.currentState.validate()) {
-                                  // Traitement des données ici
-                                  // }
+                                  showFancyCustomDialog(context);
                                 },
-                                child: const Text(
+                                child: Text(
                                   'Se pointer',
-                                  style: TextStyle(
-                                    fontSize: 20,
+                                  style: GoogleFonts.poppins(
+                                    textStyle: const TextStyle(
+                                      fontSize: 18,
+                                      // fontWeight: FontWeight.bold,
+                                      color: Colors.black,
+                                    ),
                                   ),
                                 ),
                               ),
@@ -479,7 +493,7 @@ class _AccueilPrincipaleState extends State<AccueilPrincipale> {
                               BoxShadow(
                                 color: Colors.black26,
                                 offset: Offset(0, -2),
-                                blurRadius: 10,
+                                blurRadius: 5,
                               ),
                             ],
                           ),
@@ -493,42 +507,59 @@ class _AccueilPrincipaleState extends State<AccueilPrincipale> {
                           children: [
                             Container(
                               margin: EdgeInsets.only(top: 15),
-                              child: CircleAvatar(
-                                radius: 40,
-                                backgroundColor: Color(0xFFFF0101),
-                                child: ImageIcon(
-                                    color: Colors.white,
-                                    AssetImage("assets/images/retard.png")),
+                              child: Container(
+                                child: CircleAvatar(
+                                  radius: 40,
+                                  backgroundColor: Colors.black,
+                                  child: CircleAvatar(
+                                    radius: 35,
+                                    backgroundColor: Color(0xFFF58220),
+                                    child: Container(
+                                      alignment: Alignment.center,
+                                      height: hauteur * .9,
+                                      width: largeur * .95,
+                                      child: ImageIcon(
+                                          color: Colors.white,
+                                          AssetImage(
+                                              "assets/images/autor.png")),
+                                    ),
+                                  ),
+                                ),
                               ),
                             ),
                             SizedBox(
                               width: 10,
                             ),
                             Container(
-                              alignment: Alignment.center,
+                              // alignment: Alignment.topCenter,
+                              margin: EdgeInsets.only(top: 22),
                               decoration: BoxDecoration(
                                 boxShadow: [
                                   BoxShadow(
-                                    color: Colors.black45.withOpacity(0.3),
-                                    blurRadius: 10,
-                                    offset: Offset(0, 0),
+                                    color: Colors.black26,
+                                    offset: Offset(0, -2),
+                                    blurRadius: 5,
                                   ),
                                 ],
                               ),
                               child: ElevatedButton(
                                 style: ButtonStyle(
-                                  backgroundColor:
-                                      MaterialStateProperty.all(Colors.grey),
+                                  backgroundColor: MaterialStateProperty.all(
+                                      Color(0xFFF4F4F4)),
                                 ),
                                 onPressed: () {
                                   // if (_formKey.currentState.validate()) {
                                   // Traitement des données ici
                                   // }
                                 },
-                                child: const Text(
+                                child: Text(
                                   'Demander une permission',
-                                  style: TextStyle(
-                                    fontSize: 18,
+                                  style: GoogleFonts.poppins(
+                                    textStyle: const TextStyle(
+                                      fontSize: 16,
+                                      // fontWeight: FontWeight.bold,
+                                      color: Colors.black,
+                                    ),
                                   ),
                                 ),
                               ),
@@ -548,3 +579,150 @@ class _AccueilPrincipaleState extends State<AccueilPrincipale> {
     );
   }
 }
+
+// Popup pour le pointage contenant l'heure arrivee et de depart
+void showFancyCustomDialog(BuildContext context) {
+  double hauteur = MediaQuery.of(context).size.height;
+  double largeur = MediaQuery.of(context).size.width;
+  Dialog fancyDialog = Dialog(
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(12.0),
+    ),
+    child: Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(20.0),
+      ),
+      height: 300.0,
+      width: 350.0,
+      child: Stack(
+        children: <Widget>[
+          Container(
+            margin: EdgeInsets.only(top: 20),
+            width: double.infinity,
+            height: 300,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(12.0),
+            ),
+            child: Text(
+              'Veuillez vous positionner pour un capture d’écran de votre identité après avoir Votre heure de pointage',
+              textAlign: TextAlign.center,
+              style: GoogleFonts.poppins(
+                textStyle: const TextStyle(
+                  fontSize: 18,
+                  // fontWeight: FontWeight.bold,
+                  color: Colors.black,
+                ),
+              ),
+            ),
+          ),
+          Container(
+            margin: EdgeInsets.only(top: 150),
+            width: double.infinity,
+            height: hauteur * .30,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(30),
+            ),
+            child: Column(
+              children: <Widget>[
+                ElevatedButton.icon(
+                  style: ButtonStyle(
+                    backgroundColor:
+                        MaterialStateProperty.all(Color.fromARGB(255, 0, 0, 0)),
+                  ),
+                  onPressed: () {},
+                  icon: Icon(Icons.login),
+                  label: Text(
+                    'Heure d\'arrivée',
+                    style: GoogleFonts.poppins(
+                      textStyle: const TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(height: 10),
+                ElevatedButton.icon(
+                  style: ButtonStyle(
+                    backgroundColor:
+                        MaterialStateProperty.all(Color(0xFFF58220)),
+                  ),
+                  onPressed: () {},
+                  icon: const Icon(Icons.logout),
+                  label: Text(
+                    'Heure de départ',
+                    style: GoogleFonts.poppins(
+                      textStyle: const TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Align(
+            // These values are based on trial & error method
+            alignment: Alignment(1.05, -1.05),
+            // alignment: Alignment.center,
+            child: InkWell(
+              onTap: () {
+                Navigator.pop(context);
+              },
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Colors.grey[200],
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: Icon(
+                  Icons.close,
+                  color: Colors.black,
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    ),
+  );
+  showDialog(context: context, builder: (BuildContext context) => fancyDialog);
+}
+
+
+
+ _displayDialog(BuildContext context) async {
+            return showDialog(
+                context: context,
+                builder: (context) {
+                    return AlertDialog(
+                        title: Text('AlertDemo with TextField '),
+                        content: Column(
+                          children: [
+                            TextField(
+                               
+                                decoration: InputDecoration(hintText: "Enter Text"),
+                            ),
+
+                              TextField(
+                               
+                                decoration: InputDecoration(hintText: "Enter Text"),
+                            ),
+
+                            
+                          ],
+                        ),
+                        actions: [
+                            new TextButton(
+                                child: new Text('Soumettre'),
+                                onPressed: () {
+                                    Navigator.of(context).pop();
+                                },
+                            )
+                        ],
+                    );
+                }
+            );}

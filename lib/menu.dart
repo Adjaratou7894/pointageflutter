@@ -12,14 +12,14 @@ import 'dart:async';
 
 import 'historiqueDemande.dart';
 
-class MyNavigationBar extends StatefulWidget {
-  MyNavigationBar({Key}) : super(key: Key);
+class MyNavigation extends StatefulWidget {
+  MyNavigation({Key}) : super(key: Key);
 
   @override
-  _MyNavigationBarState createState() => _MyNavigationBarState();
+  _MyNavigationState createState() => _MyNavigationState();
 }
 
-class _MyNavigationBarState extends State<MyNavigationBar> {
+class _MyNavigationState extends State<MyNavigation> {
   final Geolocator geolocator = Geolocator();
   late Position _currentPosition;
   late String _currentAddress;
@@ -44,9 +44,7 @@ class _MyNavigationBarState extends State<MyNavigationBar> {
   void _onItemTapped(int index) {
     setState(() {
       if (index == 1) {
-        print('-------------------index 1------------------');
-
-        verificationgeolocation(context);
+        showFancyCustomDialog(context);
       }
       _selectedIndex = index;
     });
@@ -54,8 +52,8 @@ class _MyNavigationBarState extends State<MyNavigationBar> {
 
   final List<Widget> _mesPages = [
     Accueil(),
-    Pointage(),
-    Permission(),
+    Container(),
+    Container(),
     Profil(),
   ];
 
@@ -63,7 +61,7 @@ class _MyNavigationBarState extends State<MyNavigationBar> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: _selectedIndex == 1 ? _mesPages[0] : _mesPages[_selectedIndex],
+        // child: _selectedIndex == 1 ? _mesPages[0] : _mesPages[_selectedIndex],
         //  child:  _selectedIndex == 3? const Profil() : _mesPages[_selectedIndex]
       ),
       bottomNavigationBar: Container(
@@ -84,11 +82,11 @@ class _MyNavigationBarState extends State<MyNavigationBar> {
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.location_on),
-              label: 'Pointage',
+              label: 'Listes',
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.person),
-              label: 'Permission',
+              label: 'Sanctions',
               // icon: Image.asset(
               //   'assets/images/dem.png',
               //   // height: 70,
@@ -118,35 +116,26 @@ class _MyNavigationBarState extends State<MyNavigationBar> {
 }
 // la methode  pour verifier la geolocation de l'apprenant
 
-void verificationgeolocation(BuildContext context) async {
-  print('-------------------verification------------------');
-
+void _verificationgeolocation(BuildContext context) async {
   // _getCurrentLocation();
-  Geolocator geolocator = Geolocator();
-
-  var _currentPosition = await Geolocator.getCurrentPosition(
+  var geolocator;
+  var _currentPosition = await geolocator.getCurrentPosition(
       desiredAccuracy: LocationAccuracy.high);
 
-  double OdcLatitude = 12.56639;
-  double OdcLongitude = 7.99343;
-  double OdcLatitude2 = 37.4219999;
-  double OdcLongitude2 = -122.0840575;
-  double distanceInMeters;
-  double k = 1.182 * 60;
+  double OdcLatitude = 12.654200;
+  double OdcLongitude = -7.998900;
   // var _currentPosition;
-  double latitudeDiff = (_currentPosition.latitude - OdcLatitude);
-  double longitudeDiff = (_currentPosition.longitude - OdcLongitude) *
-      cos((_currentPosition.latitude + OdcLatitude) / 2);
-  double z = sqrt(latitudeDiff * latitudeDiff + longitudeDiff * longitudeDiff);
-  distanceInMeters = k * z;
+  double latitudeDiff = _currentPosition.latitude - OdcLatitude;
+  double longitudeDiff = _currentPosition.longitude - OdcLongitude;
+  double distanceInMeters =
+      sqrt(latitudeDiff * latitudeDiff + longitudeDiff * longitudeDiff);
+
   print('-------------------distance In Meters------------------');
   print(distanceInMeters);
   if (distanceInMeters <= 100) {
-    print("je suis à ODC");
     showFancyCustomDialog(context);
   } else {
-    print("je suis à la maison");
-    showOutOfRangeDialog();
+    _showOutOfRangeDialog();
   }
 }
 // void verification(BuildContext context) {
@@ -164,7 +153,7 @@ _getCurrentLocation() async {
       desiredAccuracy: LocationAccuracy.high);
 }
 
-showOutOfRangeDialog() {
+_showOutOfRangeDialog() {
   var context;
   showDialog(
       context: context,
@@ -175,7 +164,6 @@ showOutOfRangeDialog() {
               'Veuillez être dans les locaux Orange Digital Center pour vous pointez .'),
         );
       });
-
 }
 
 // Popup pour le pointage contenant l'heure arrivee et de depart

@@ -42,11 +42,16 @@ dependencies:
   rflutter_alert: ^1.0.2
   # google_maps_flutter: ^2.2.3
   # geolocator: ^9.0.2
-  geolocator: ^7.0.0
-  location: ^2.3.5
+  # location: ^2.3.5
   #dependence provider pour integration(databinding)
   provider: ^6.0.5
   http: ^0.13.5
+  shared_preferences: ^2.0.17
+  geolocator:
+  geocoding: ^2.0.5
+  url_launcher: ^6.1.7
+  flutter_secure_storage: ^7.0.1
+  
 
 dev_dependencies:
   flutter_test:

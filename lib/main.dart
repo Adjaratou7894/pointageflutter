@@ -26,11 +26,11 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       // home: const Splash(),
-      // home: const PremierSplash(),
+      home: const PremierSplash(),
       // home: const Connexion(),
       // home: const Accueil(),
       // home: const Pointage(),
-      home: const AccueilPrincipale(),
+      // home: const AccueilPrincipale(),
 
       // home: MyNavigationBar(),
       // home: Notifications(),
