@@ -1,4 +1,5 @@
 import 'dart:math';
+import 'package:quickalert/quickalert.dart';
 
 import 'package:flutter/material.dart';
 import 'package:pointageflutter/Controllers/pointageController.dart';
@@ -168,7 +169,12 @@ void verificationgeolocation(BuildContext context) async {
     showFancyCustomDialog(context);
   } else {
     print("je suis à la maison");
-    showOutOfRangeDialog();
+    QuickAlert.show(
+      context: context,
+      type: QuickAlertType.error,
+      title: 'Erreur...',
+      text: 'Desole, Veuillez etre à ODC pour vous pointez',
+    );
   }
 }
 // void verification(BuildContext context) {
@@ -186,18 +192,18 @@ _getCurrentLocation() async {
       desiredAccuracy: LocationAccuracy.high);
 }
 
-showOutOfRangeDialog() {
-  var context;
-  showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text('Error'),
-          content: Text(
-              'Veuillez être dans les locaux Orange Digital Center pour vous pointez .'),
-        );
-      });
-}
+// showOutOfRangeDialog() {
+//   var context;
+//   showDialog(
+//       context: context,
+//       builder: (BuildContext context) {
+//         return AlertDialog(
+//           title: Text('Error'),
+//           content: Text(
+//               'Veuillez être dans les locaux Orange Digital Center pour vous pointez .'),
+//         );
+//       });
+// }
 
 // Popup pour le pointage contenant l'heure arrivee et de depart
 void showFancyCustomDialog(BuildContext context) {
@@ -286,6 +292,11 @@ void showFancyCustomDialog(BuildContext context) {
                       ? () {
                           PointageController().sauvegarderPointageFin();
                           _isButtonDisabled = true;
+                          QuickAlert.show(
+                            context: context,
+                            type: QuickAlertType.success,
+                            text: 'Pointage effectuée avec succès!',
+                          );
                         }
                       : null,
                   icon: const Icon(Icons.logout),
@@ -335,12 +346,12 @@ bool _isButtonDisabled = true;
 bool canClickButton() {
   var now = DateTime.now();
   var hour = now.hour;
-  return _isButtonDisabled && hour <= 9;
+  return _isButtonDisabled && hour >= 6 && hour <= 12;
 }
 
 // Pour desactiver le bouton heure de fin
 bool canClickButtonfin() {
   var now = DateTime.now();
   var hour = now.hour;
-  return _isButtonDisabled && hour <= 18;
+  return _isButtonDisabled && hour >= 17 && hour <= 18;
 }
