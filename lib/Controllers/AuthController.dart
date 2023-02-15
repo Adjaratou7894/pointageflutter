@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:pointageflutter/accueil.dart';
 
 import '../services/globals.dart';
 
@@ -19,7 +18,8 @@ class AuthController {
       if (response.statusCode == 200) {
         var loginArr = json.decode(response.body);
 
-        print(loginArr);
+        //print(loginArr['id']);
+        usId = loginArr['id'];
       } else {
         print(response.body);
       }

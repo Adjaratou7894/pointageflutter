@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:pointageflutter/Controllers/pointageController.dart';
 import 'package:pointageflutter/accueil.dart';
 import 'package:pointageflutter/connexion.dart';
 import 'package:pointageflutter/pointage.dart';
@@ -9,6 +10,10 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pointageflutter/profil.dart';
 import 'package:geolocator/geolocator.dart';
 import 'dart:async';
+import 'dart:convert';
+import '../services/globals.dart';
+
+import 'package:http/http.dart' as http;
 
 import 'historiqueDemande.dart';
 
@@ -58,6 +63,23 @@ class _MyNavigationBarState extends State<MyNavigationBar> {
     Permission(),
     Profil(),
   ];
+//  cette methode permet de  recuperer l'id de l'utilisateur qui est connecté
+  @override
+  void initState() {
+    super.initState();
+    usId;
+
+    // Définir une minuterie pour demain à minuit pour activer le bouton automatique demain
+
+    var now = DateTime.now();
+    var tomorrow = DateTime(now.year, now.month, now.day + 1, 0, 0, 0);
+    var duration = tomorrow.difference(now);
+    Timer(duration, () {
+      setState(() {
+        _isButtonDisabled = false;
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -127,16 +149,16 @@ void verificationgeolocation(BuildContext context) async {
   var _currentPosition = await Geolocator.getCurrentPosition(
       desiredAccuracy: LocationAccuracy.high);
 
-  double OdcLatitude = 12.56639;
-  double OdcLongitude = 7.99343;
+  // double OdcLatitude = 12.56639;
+  // double OdcLongitude = 7.99343;
   double OdcLatitude2 = 37.4219999;
   double OdcLongitude2 = -122.0840575;
   double distanceInMeters;
   double k = 1.182 * 60;
   // var _currentPosition;
-  double latitudeDiff = (_currentPosition.latitude - OdcLatitude);
-  double longitudeDiff = (_currentPosition.longitude - OdcLongitude) *
-      cos((_currentPosition.latitude + OdcLatitude) / 2);
+  double latitudeDiff = (_currentPosition.latitude - OdcLatitude2);
+  double longitudeDiff = (_currentPosition.longitude - OdcLongitude2) *
+      cos((_currentPosition.latitude + OdcLatitude2) / 2);
   double z = sqrt(latitudeDiff * latitudeDiff + longitudeDiff * longitudeDiff);
   distanceInMeters = k * z;
   print('-------------------distance In Meters------------------');
@@ -175,11 +197,15 @@ showOutOfRangeDialog() {
               'Veuillez être dans les locaux Orange Digital Center pour vous pointez .'),
         );
       });
-
 }
 
 // Popup pour le pointage contenant l'heure arrivee et de depart
 void showFancyCustomDialog(BuildContext context) {
+  var id = usId;
+  var idpointage = pointageId;
+  var longitude = 10.2;
+  var latitude = 20.0;
+
   double hauteur = MediaQuery.of(context).size.height;
   double largeur = MediaQuery.of(context).size.width;
   Dialog fancyDialog = Dialog(
@@ -228,7 +254,16 @@ void showFancyCustomDialog(BuildContext context) {
                     backgroundColor:
                         MaterialStateProperty.all(Color.fromARGB(255, 0, 0, 0)),
                   ),
-                  onPressed: () {},
+                  onPressed: canClickButton()
+                      ? () {
+                          print(id);
+                          PointageController().sauvegarderPointage(id);
+                          // PointageController(). (id);
+                          print('est ok');
+
+                          _isButtonDisabled = true;
+                        }
+                      : null,
                   icon: Icon(Icons.login),
                   label: Text(
                     'Heure d\'arrivée',
@@ -247,7 +282,12 @@ void showFancyCustomDialog(BuildContext context) {
                     backgroundColor:
                         MaterialStateProperty.all(Color(0xFFF58220)),
                   ),
-                  onPressed: () {},
+                  onPressed: canClickButtonfin()
+                      ? () {
+                          PointageController().sauvegarderPointageFin();
+                          _isButtonDisabled = true;
+                        }
+                      : null,
                   icon: const Icon(Icons.logout),
                   label: Text(
                     'Heure de départ',
@@ -288,4 +328,19 @@ void showFancyCustomDialog(BuildContext context) {
     ),
   );
   showDialog(context: context, builder: (BuildContext context) => fancyDialog);
+}
+
+// Pour desactiver le bouton heure d'arrivée
+bool _isButtonDisabled = true;
+bool canClickButton() {
+  var now = DateTime.now();
+  var hour = now.hour;
+  return _isButtonDisabled && hour <= 9;
+}
+
+// Pour desactiver le bouton heure de fin
+bool canClickButtonfin() {
+  var now = DateTime.now();
+  var hour = now.hour;
+  return _isButtonDisabled && hour <= 18;
 }
