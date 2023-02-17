@@ -3,6 +3,8 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/material.dart';
 import 'package:pointageflutter/Controllers/AuthController.dart';
+import 'package:pointageflutter/models/ListeData.dart';
+import 'package:pointageflutter/models/demande.dart';
 import 'package:pointageflutter/services/globals.dart';
 import 'package:select_form_field/select_form_field.dart';
 
@@ -16,11 +18,10 @@ class Permission extends StatefulWidget {
 }
 
 class _PermissionState extends State<Permission> {
-  bool descriptionMotif = false;
-  bool erreur = false;
-  String motifController = "";
-
-  TextEditingController descriptionMotifController = TextEditingController();
+  List<DemandePermission> demandepermissions = [];
+  getDemandePermission(id) async {
+    demandepermissions = await DemandeController.listedemande(id);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -260,6 +261,7 @@ class _TttttState extends State<Ttttt> {
   bool erreur = false;
   String motifController = "";
   DemandeController demandeController = DemandeController();
+
   var id = usId;
   final formKey = GlobalKey<FormState>();
 

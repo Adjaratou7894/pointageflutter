@@ -260,16 +260,19 @@ void showFancyCustomDialog(BuildContext context) {
                     backgroundColor:
                         MaterialStateProperty.all(Color.fromARGB(255, 0, 0, 0)),
                   ),
-                  onPressed: canClickButton()
-                      ? () {
-                          print(id);
-                          PointageController().sauvegarderPointage(id);
-                          // PointageController(). (id);
-                          print('est ok');
+                  onPressed: () {
+                    print(id);
+                    PointageController().sauvegarderPointage(id);
+                    // PointageController(). (id);
+                    print('est ok');
 
-                          _isButtonDisabled = true;
-                        }
-                      : null,
+                    _isButtonDisabled = true;
+                    QuickAlert.show(
+                      context: context,
+                      type: QuickAlertType.success,
+                      text: 'Pointage effectuée avec succès!',
+                    );
+                  },
                   icon: Icon(Icons.login),
                   label: Text(
                     'Heure d\'arrivée',
@@ -288,17 +291,18 @@ void showFancyCustomDialog(BuildContext context) {
                     backgroundColor:
                         MaterialStateProperty.all(Color(0xFFF58220)),
                   ),
-                  onPressed: canClickButtonfin()
-                      ? () {
-                          PointageController().sauvegarderPointageFin();
-                          _isButtonDisabled = true;
-                          QuickAlert.show(
-                            context: context,
-                            type: QuickAlertType.success,
-                            text: 'Pointage effectuée avec succès!',
-                          );
-                        }
-                      : null,
+                  onPressed: () {
+                    print(idpointage);
+
+                    PointageController().sauvegarderPointageFin();
+                    print('est ok');
+                    _isButtonDisabled = true;
+                    QuickAlert.show(
+                      context: context,
+                      type: QuickAlertType.success,
+                      text: 'Pointage effectuée avec succès!',
+                    );
+                  },
                   icon: const Icon(Icons.logout),
                   label: Text(
                     'Heure de départ',

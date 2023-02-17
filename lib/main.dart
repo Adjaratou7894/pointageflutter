@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:pointageflutter/accueil.dart';
+import 'package:pointageflutter/models/ListeData.dart';
 import 'package:pointageflutter/pointage.dart';
 import 'package:pointageflutter/premiersplashscreen.dart';
 import 'package:pointageflutter/profil.dart';
 import 'package:pointageflutter/splashscreen.dart';
+import 'package:provider/provider.dart';
 
 import 'accueilPrincipale.dart';
 import 'connexion.dart';
@@ -19,22 +21,25 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'ODC Pointeur',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
+    return ChangeNotifierProvider<ListeData>(
+      create: (context) => ListeData(),
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'ODC Pointeur',
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+        ),
+        // home: const Splash(),
+        home: const PremierSplash(),
+        // home: const Connexion(),
+        // home: const Accueil(),
+        // home: const Pointage(),
+        // home: const AccueilPrincipale(),
+    
+        // home: MyNavigationBar(),
+        // home: Notifications(),
+        // home: const Profil(),
       ),
-      // home: const Splash(),
-      home: const PremierSplash(),
-      // home: const Connexion(),
-      // home: const Accueil(),
-      // home: const Pointage(),
-      // home: const AccueilPrincipale(),
-
-      // home: MyNavigationBar(),
-      // home: Notifications(),
-      // home: const Profil(),
     );
   }
 }
