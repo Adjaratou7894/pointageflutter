@@ -30,23 +30,6 @@ class _MyNavigationBarState extends State<MyNavigationBar> {
   late Position _currentPosition;
   late String _currentAddress;
   int _selectedIndex = 0;
-
-  // static const List<Widget> _widgetOptions = <Widget>[
-  //   Text('Accueil',
-  //       style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold)),
-  //   Text('Pointage',
-  //       style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold)),
-  //   Text('Permission',
-  //       style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold)),
-  //   Text('Profil', style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold)),
-  // ];
-
-  // void _onItemTapped(int index) {
-  //   setState(() {
-  //     _selectedIndex = index;
-  //   });
-  // }
-
   void _onItemTapped(int index) {
     setState(() {
       if (index == 1) {
@@ -72,15 +55,46 @@ class _MyNavigationBarState extends State<MyNavigationBar> {
 
     // Définir une minuterie pour demain à minuit pour activer le bouton automatique demain
 
-    var now = DateTime.now();
-    var tomorrow = DateTime(now.year, now.month, now.day + 1, 0, 0, 0);
-    var duration = tomorrow.difference(now);
-    Timer(duration, () {
+    // Start the timer for 24 hours
+    _timer = Timer(Duration(hours: 24), () {
       setState(() {
-        _isButtonDisabled = false;
+        _isButtonPressed = true;
       });
     });
   }
+
+  // bool _isDisabled = false;
+  // void _onPressed() {
+  //  if (!_isDisabled) {
+  //     setState(() {
+  //       _isDisabled = true;
+  //     });
+  //        Timer(Duration(seconds:5),() {
+  //     setState(() {
+  //       _isDisabled = false;
+  //     });
+  //   });
+  //   }
+
+  // }
+
+  bool _isButtonPressed = true;
+  bool _isButtonPressed1 = true;
+  Timer? _timer;
+
+  void _onButtonPressed() {
+    setState(() {
+      _isButtonPressed = false;
+      _isButtonPressed1 = false;
+      _timer?.cancel();
+    });
+  }
+
+  // void _onButtonPressed() {
+  //   setState(() {
+  //     _isButtonPressed1 = false;
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -260,19 +274,22 @@ void showFancyCustomDialog(BuildContext context) {
                     backgroundColor:
                         MaterialStateProperty.all(Color.fromARGB(255, 0, 0, 0)),
                   ),
-                  onPressed: () {
-                    print(id);
-                    PointageController().sauvegarderPointage(id);
-                    // PointageController(). (id);
-                    print('est ok');
+                  onPressed: _isButtonPressed
+                      ? null
+                      : () {
+                          print(id);
+                          PointageController().sauvegarderPointage(id);
+                          // PointageController(). (id);
+                          print('est ok');
 
-                    _isButtonDisabled = true;
-                    QuickAlert.show(
-                      context: context,
-                      type: QuickAlertType.success,
-                      text: 'Pointage effectuée avec succès!',
-                    );
-                  },
+                          _isButtonPressed = true;
+
+                          QuickAlert.show(
+                            context: context,
+                            type: QuickAlertType.success,
+                            text: 'Pointage effectuée avec succès!',
+                          );
+                        },
                   icon: Icon(Icons.login),
                   label: Text(
                     'Heure d\'arrivée',
@@ -286,23 +303,57 @@ void showFancyCustomDialog(BuildContext context) {
                   ),
                 ),
                 SizedBox(height: 10),
+                // ElevatedButton.icon(
+                //   style: ButtonStyle(
+                //     backgroundColor:
+                //         MaterialStateProperty.all(Color(0xFFF58220)),
+                //   ),
+                //   onPressed: canClickButtonfin()
+                //       ? () {
+                //           print(idpointage);
+                //           PointageController().sauvegarderPointageFin();
+                //           print('est ok');
+                //           _isButtonDisabled = true;
+                //           QuickAlert.show(
+                //             context: context,
+                //             type: QuickAlertType.success,
+                //             text: 'Pointage effectuée avec succès!',
+                //           );
+                //         }
+                //       : null,
+                //   icon: const Icon(Icons.logout),
+                //   label: Text(
+                //     'Heure de départ',
+                //     style: GoogleFonts.poppins(
+                //       textStyle: const TextStyle(
+                //         fontSize: 20,
+                //         fontWeight: FontWeight.bold,
+                //         color: Colors.white,
+                //       ),
+                //     ),
+                //   ),
+                // ),
+
                 ElevatedButton.icon(
                   style: ButtonStyle(
                     backgroundColor:
                         MaterialStateProperty.all(Color(0xFFF58220)),
                   ),
-                  onPressed: () {
-                    print(idpointage);
+                  onPressed: _isButtonPressed1
+                      ? null
+                      : () {
+                          print(idpointage);
+                          PointageController().sauvegarderPointageFin();
+                          print('est ok');
 
-                    PointageController().sauvegarderPointageFin();
-                    print('est ok');
-                    _isButtonDisabled = true;
-                    QuickAlert.show(
-                      context: context,
-                      type: QuickAlertType.success,
-                      text: 'Pointage effectuée avec succès!',
-                    );
-                  },
+                          _isButtonPressed1 = true;
+
+                          QuickAlert.show(
+                            context: context,
+                            type: QuickAlertType.success,
+                            text: 'Pointage effectuée avec succès!',
+                          );
+                        },
                   icon: const Icon(Icons.logout),
                   label: Text(
                     'Heure de départ',
@@ -346,16 +397,20 @@ void showFancyCustomDialog(BuildContext context) {
 }
 
 // Pour desactiver le bouton heure d'arrivée
-bool _isButtonDisabled = true;
+bool _isButtonPressed = false;
+bool _isButtonPressed1 = false;
 bool canClickButton() {
   var now = DateTime.now();
   var hour = now.hour;
-  return _isButtonDisabled && hour >= 6 && hour <= 12;
+  var seconde = now.second;
+  print("$_isButtonPressed ffggghhhhh");
+  return _isButtonPressed;
+  ;
 }
 
 // Pour desactiver le bouton heure de fin
 bool canClickButtonfin() {
   var now = DateTime.now();
   var hour = now.hour;
-  return _isButtonDisabled && hour >= 17 && hour <= 18;
+  return _isButtonPressed1;
 }

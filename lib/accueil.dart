@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pointageflutter/notification.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class Accueil extends StatefulWidget {
   const Accueil({super.key});
@@ -63,12 +64,12 @@ class _AccueilState extends State<Accueil> {
                               width: largeur * 0.02,
                             ),
                             Text(
-                              'Kalanso',
-                              style: TextStyle(
-                                fontSize: 30,
-                                // fontWeight: FontWeight.bold,
-                                color: Colors.black,
-                                fontFamily: 'DayRoman',
+                              'Kalanso2',
+                              style: GoogleFonts.poppins(
+                                textStyle: const TextStyle(
+                                  fontSize: 30,
+                                  // fontWeight: FontWeight.bold,
+                                ),
                               ),
                             )
                           ],
@@ -143,12 +144,14 @@ class _AccueilState extends State<Accueil> {
                           Container(
                             alignment: Alignment.centerLeft,
                             margin: const EdgeInsets.only(top: 20),
-                            child: const Text(
+                            child: Text(
                               'Statistique: Durée de la formation',
-                              style: TextStyle(
-                                fontSize: 20,
-                                color: Colors.white,
-                                fontFamily: 'DayRoman',
+                              style: GoogleFonts.poppins(
+                                textStyle: const TextStyle(
+                                  fontSize: 19,
+                                  // fontWeight: FontWeight.bold,
+                                  color: Colors.white,
+                                ),
                               ),
                             ),
                           ),
@@ -157,14 +160,15 @@ class _AccueilState extends State<Accueil> {
                           ),
                           Container(
                             child: Row(
-                              children: const [
+                              children: [
                                 Text(
                                   '3 mois 25 jours',
-                                  style: TextStyle(
-                                    fontSize: 30,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.white,
-                                    fontFamily: 'DayRoman',
+                                  style: GoogleFonts.poppins(
+                                    textStyle: const TextStyle(
+                                      fontSize: 30,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.white,
+                                    ),
                                   ),
                                 ),
                                 Expanded(
@@ -176,11 +180,12 @@ class _AccueilState extends State<Accueil> {
                                       radius: 30.0,
                                       child: Text(
                                         '54%',
-                                        style: TextStyle(
-                                          fontSize: 20,
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.white,
-                                          fontFamily: 'DayRoman',
+                                        style: GoogleFonts.poppins(
+                                          textStyle: const TextStyle(
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.white,
+                                          ),
                                         ),
                                       ),
                                     ),
@@ -192,12 +197,14 @@ class _AccueilState extends State<Accueil> {
                           Container(
                             alignment: Alignment.centerLeft,
                             // margin: const EdgeInsets.only(top: 5),
-                            child: const Text(
+                            child: Text(
                               'Sur 6 mois ',
-                              style: TextStyle(
-                                fontSize: 20,
-                                color: Colors.white,
-                                fontFamily: 'DayRoman',
+                              style: GoogleFonts.poppins(
+                                textStyle: const TextStyle(
+                                  fontSize: 20,
+                                  // fontWeight: FontWeight.bold,
+                                  color: Colors.white,
+                                ),
                               ),
                             ),
                           )
@@ -244,14 +251,15 @@ class _AccueilState extends State<Accueil> {
                                           SizedBox(
                                             width: largeur * 0.02,
                                           ),
-                                          const Expanded(
+                                          Expanded(
                                             child: Text(
                                               '90 jours',
-                                              style: TextStyle(
-                                                fontSize: 12,
-                                                // fontWeight: FontWeight.bold,
-                                                color: Colors.black,
-                                                fontFamily: 'DayRoman',
+                                              style: GoogleFonts.poppins(
+                                                textStyle: const TextStyle(
+                                                  fontSize: 12,
+                                                  // fontWeight: FontWeight.bold,
+                                                  color: Colors.black,
+                                                ),
                                               ),
                                             ),
                                           ),
@@ -259,15 +267,14 @@ class _AccueilState extends State<Accueil> {
                                       ),
                                     ),
                                     SizedBox(height: 10),
-                                    const Text(
-                                      "Total Presence",
-                                      style: TextStyle(
-                                        fontSize: 15,
-                                        // fontWeight: FontWeight.bold,
-                                        color: Colors.black,
-                                        fontFamily: 'DayRoman',
-                                      ),
-                                    )
+                                    Text("Total Presence",
+                                        style: GoogleFonts.poppins(
+                                          textStyle: const TextStyle(
+                                            fontSize: 13,
+                                            // fontWeight: FontWeight.bold,
+                                            color: Colors.black,
+                                          ),
+                                        ))
                                   ]),
                                 ),
                               ),
@@ -295,28 +302,28 @@ class _AccueilState extends State<Accueil> {
                                           SizedBox(
                                             width: largeur * 0.02,
                                           ),
-                                          const Expanded(
-                                            child: Text(
-                                              '15',
-                                              style: TextStyle(
-                                                fontSize: 15,
-                                                // fontWeight: FontWeight.bold,
-                                                color: Colors.black,
-                                                fontFamily: 'DayRoman',
-                                              ),
-                                            ),
+                                          Expanded(
+                                            child: Text('15',
+                                                style: GoogleFonts.poppins(
+                                                  textStyle: const TextStyle(
+                                                    fontSize: 12,
+                                                    // fontWeight: FontWeight.bold,
+                                                    color: Colors.black,
+                                                  ),
+                                                )),
                                           ),
                                         ],
                                       ),
                                     ),
                                     SizedBox(height: 10),
-                                    const Text(
+                                    Text(
                                       "Total Retard",
-                                      style: TextStyle(
-                                        fontSize: 15,
-                                        // fontWeight: FontWeight.bold,
-                                        color: Colors.black,
-                                        fontFamily: 'DayRoman',
+                                      style: GoogleFonts.poppins(
+                                        textStyle: const TextStyle(
+                                          fontSize: 13,
+                                          // fontWeight: FontWeight.bold,
+                                          color: Colors.black,
+                                        ),
                                       ),
                                     )
                                   ]),
@@ -346,30 +353,28 @@ class _AccueilState extends State<Accueil> {
                                           SizedBox(
                                             width: largeur * 0.02,
                                           ),
-                                          const Expanded(
-                                            child: Text(
-                                              '0',
-                                              style: TextStyle(
-                                                fontSize: 15,
-                                                // fontWeight: FontWeight.bold,
-                                                color: Colors.black,
-                                                fontFamily: 'DayRoman',
-                                              ),
-                                            ),
+                                          Expanded(
+                                            child: Text('0',
+                                                style: GoogleFonts.poppins(
+                                                  textStyle: const TextStyle(
+                                                    fontSize: 12,
+                                                    // fontWeight: FontWeight.bold,
+                                                    color: Colors.black,
+                                                  ),
+                                                )),
                                           ),
                                         ],
                                       ),
                                     ),
                                     SizedBox(height: 10),
-                                    const Text(
-                                      "Total Absence",
-                                      style: TextStyle(
-                                        fontSize: 15,
-                                        // fontWeight: FontWeight.bold,
-                                        color: Colors.black,
-                                        fontFamily: 'DayRoman',
-                                      ),
-                                    )
+                                    Text("Total Absence",
+                                        style: GoogleFonts.poppins(
+                                          textStyle: const TextStyle(
+                                            fontSize: 13,
+                                            // fontWeight: FontWeight.bold,
+                                            color: Colors.black,
+                                          ),
+                                        ))
                                   ]),
                                 ),
                               )
@@ -395,14 +400,14 @@ class _AccueilState extends State<Accueil> {
                       //                       MainAxisAlignment.spaceBetween,
                       alignment: Alignment.centerLeft,
 
-                      child: const Text(
+                      child: Text(
                         "Sanctions",
-                        style: TextStyle(
+                        style: GoogleFonts.poppins(
+                            textStyle: const TextStyle(
                           fontSize: 40,
                           fontWeight: FontWeight.bold,
                           color: Colors.black,
-                          fontFamily: 'DayRoman',
-                        ),
+                        )),
                       ),
                     )),
                     Expanded(

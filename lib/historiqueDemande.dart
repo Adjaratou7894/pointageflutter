@@ -6,6 +6,7 @@ import 'package:pointageflutter/Controllers/AuthController.dart';
 import 'package:pointageflutter/models/ListeData.dart';
 import 'package:pointageflutter/models/demande.dart';
 import 'package:pointageflutter/services/globals.dart';
+import 'package:quickalert/quickalert.dart';
 import 'package:select_form_field/select_form_field.dart';
 
 import 'Controllers/DemandeController.dart';
@@ -297,8 +298,10 @@ class _TttttState extends State<Ttttt> {
         children: [
           Text(
             "Ecrire une demande",
-            style: TextStyle(
-              fontSize: 24.0,
+            style: GoogleFonts.poppins(
+              textStyle: const TextStyle(
+                fontSize: 20,
+              ),
             ),
           ),
           SizedBox(width: 5),
@@ -333,10 +336,17 @@ class _TttttState extends State<Ttttt> {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
-              const Padding(
+              Padding(
                 padding: EdgeInsets.all(8.0),
                 child: Text(
                   "Choisir le type de demande ",
+                  style: GoogleFonts.poppins(
+                    textStyle: const TextStyle(
+                      fontSize: 16,
+                      // fontWeight: FontWeight.bold,
+                      // color: Colors.white,
+                    ),
+                  ),
                 ),
               ),
               Container(
@@ -409,25 +419,52 @@ class _TttttState extends State<Ttttt> {
                     // }
 
                     // Navigator.of(context).pop();
+
+                    QuickAlert.show(
+                      context: context,
+                      type: QuickAlertType.success,
+                      text: 'Demande effectuée avec succès!',
+                    );
                   },
                   style: ElevatedButton.styleFrom(
                     primary: Color(0xFFF58220),
                     // fixedSize: Size(250, 50),
                   ),
-                  child: const Text(
+                  child: Text(
                     "Soumettre",
+                    style: GoogleFonts.poppins(
+                      textStyle: const TextStyle(
+                        fontSize: 20,
+                        // fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
+                    ),
                   ),
                 ),
               ),
               Container(
                 padding: const EdgeInsets.all(8.0),
-                child: const Text('Note'),
+                child: Text(
+                  'Note',
+                  style: GoogleFonts.poppins(
+                    textStyle: const TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
               ),
-              const Padding(
+              Padding(
                 padding: EdgeInsets.all(8.0),
                 child: Text(
                   'Votre présence joue un role important dans la formation, l\'esprit d\'equipe',
-                  style: TextStyle(fontSize: 12),
+                  style: GoogleFonts.poppins(
+                    textStyle: const TextStyle(
+                      fontSize: 18,
+                      // fontWeight: FontWeight.bold,
+                      // color: Colors.white,
+                    ),
+                  ),
                 ),
               ),
             ],
