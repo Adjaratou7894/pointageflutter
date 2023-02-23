@@ -2,15 +2,18 @@ class Authentification {
   int? id;
   String? username;
   String? password;
-  
+  String? nom;
+  String? prenom;
+
   List<Roles>? roles;
   Liste? liste;
 
- Authentification(
+  Authentification(
       {this.id,
       this.username,
       this.password,
-     
+      this.nom,
+      this.prenom,
       this.roles,
       this.liste});
 
@@ -18,8 +21,9 @@ class Authentification {
     id = json['id'];
     username = json['username'];
     password = json['password'];
+    nom = json['nom'];
+    prenom = json['prenom'];
 
-    
     if (json['roles'] != null) {
       roles = <Roles>[];
       json['roles'].forEach((v) {
@@ -34,6 +38,8 @@ class Authentification {
     data['id'] = this.id;
     data['username'] = this.username;
     data['password'] = this.password;
+    data['nom'] = this.nom;
+    data['prenom'] = this.prenom;
 
     if (this.roles != null) {
       data['roles'] = this.roles!.map((v) => v.toJson()).toList();
@@ -66,19 +72,17 @@ class Roles {
 
 class Liste {
   int? idliste;
- 
 
   Liste({this.idliste});
 
   Liste.fromJson(Map<String, dynamic> json) {
     idliste = json['idliste'];
-    
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['idliste'] = this.idliste;
-   
+
     return data;
   }
 }

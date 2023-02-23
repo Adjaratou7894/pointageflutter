@@ -3,6 +3,7 @@ import 'package:http/http.dart' as http;
 import 'package:flutter/foundation.dart';
 import '../models/pointage.dart';
 import '../services/globals.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class PointageController {
   // static const String baseUrl = 'http://localhost:8080/api/pointage';
@@ -12,6 +13,7 @@ class PointageController {
     Map<String, dynamic> data = {'longetude': 0.0, 'latitude': 0.0};
     Map<String, String> headers = {"Content-Type": "application/json"};
     var body = jsonEncode(data);
+     SharedPreferences prefs = await SharedPreferences.getInstance();
 
     var url =
         Uri.parse('http://10.0.2.2:8080/api/pointage/sauvegarderpointage/$id');

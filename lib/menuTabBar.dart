@@ -4,14 +4,11 @@ import 'package:quickalert/quickalert.dart';
 import 'package:flutter/material.dart';
 import 'package:pointageflutter/Controllers/pointageController.dart';
 import 'package:pointageflutter/accueil.dart';
-import 'package:pointageflutter/connexion.dart';
 import 'package:pointageflutter/pointage.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pointageflutter/profil.dart';
 import 'package:geolocator/geolocator.dart';
 import 'dart:async';
-import 'dart:convert';
 import '../services/globals.dart';
 
 import 'package:http/http.dart' as http;
@@ -26,6 +23,9 @@ class MyNavigationBar extends StatefulWidget {
 }
 
 class _MyNavigationBarState extends State<MyNavigationBar> {
+  bool heureArriver = true;
+  Timer? _timer;
+  bool heureDepart = false;
   final Geolocator geolocator = Geolocator();
   late Position _currentPosition;
   late String _currentAddress;
@@ -41,7 +41,7 @@ class _MyNavigationBarState extends State<MyNavigationBar> {
     });
   }
 
-  final List<Widget> _mesPages = [
+  final List<Widget> _mesPages = const [
     Accueil(),
     Pointage(),
     Permission(),
@@ -56,7 +56,10 @@ class _MyNavigationBarState extends State<MyNavigationBar> {
     // Définir une minuterie pour demain à minuit pour activer le bouton automatique demain
 
     // Start the timer for 24 hours
-    _timer = Timer(Duration(hours: 24), () {});
+    _timer = Timer(Duration(hours: 24), () {
+      heureArriver = true;
+      heureDepart = false;
+    });
   }
 
   // bool _isDisabled = false;
@@ -72,26 +75,6 @@ class _MyNavigationBarState extends State<MyNavigationBar> {
   //   });
   //   }
 
-  // }
-
-  bool _isButtonPressed = true;
-  // bool _isButtonPressed1 = true;
-  // bool firstButtonClicked = false;
-  Timer? _timer;
-
-  void _onButtonPressed() {
-    setState(() {
-      _isButtonPressed = !_isButtonPressed;
-      // _isButtonPressed1 = true;
-      // firstButtonClicked = true;
-      _timer?.cancel();
-    });
-  }
-
-  // void _onButtonPressed() {
-  //   setState(() {
-  //     _isButtonPressed1 = false;
-  //   });
   // }
 
   @override
@@ -183,7 +166,7 @@ class _MyNavigationBarState extends State<MyNavigationBar> {
                 borderRadius: BorderRadius.circular(12.0),
               ),
               child: Text(
-                'Veuillez vous positionner pour un capture d’écran de votre identité après avoir Votre heure de pointage',
+                'Veuillez vous positionner pour une capture d’écran de votre identité après avoir choisir Votre heure de pointage',
                 textAlign: TextAlign.center,
                 style: GoogleFonts.poppins(
                   textStyle: const TextStyle(
@@ -205,33 +188,38 @@ class _MyNavigationBarState extends State<MyNavigationBar> {
                 children: <Widget>[
                   ElevatedButton.icon(
                     style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all(
-                          _isButtonPressed
-                              ? Color.fromARGB(255, 0, 0, 0)
-                              : Colors.grey),
+                      backgroundColor: MaterialStateProperty.all(heureArriver
+                          ? Color.fromARGB(255, 0, 0, 0)
+                          : Colors.grey),
                     ),
 
                     // -----------------------start ------------------------------
                     onPressed: () {
-                      if (_isButtonPressed == true) {
-                        print(
-                            '------------------------------------------------active-----------------------------');
-                        PointageController().sauvegarderPointage(id);
+                      heureArriver
+                          ? PointageController().sauvegarderPointage(id)
+                          : null;
 
-                        // PointageController(). (id);
-                        Navigator.pop(context);
-                        // _isButtonPressed = true;
-                        // firstButtonClicked = true;
+                      // PointageController(). (id);
+                      Navigator.pop(context);
 
-                        QuickAlert.show(
-                            context: context,
-                            type: QuickAlertType.success,
-                            text: 'Pointage effectuée avec succès!');
+                      heureArriver
+                          ? QuickAlert.show(
+                              context: context,
+                              type: QuickAlertType.success,
+                              text: 'Pointage effectuée avec succès!')
+                          : QuickAlert.show(
+                              context: context,
+                              type: QuickAlertType.info,
+                              text:
+                                  'Vous etes dejà pointez pour le matin, Bonne Journée',
+                            );
 
-                        _onButtonPressed();
-                      } else {
-                        return null;
-                      }
+                      heureArriver
+                          ? setState(() {
+                              heureDepart = true;
+                              heureArriver = false;
+                            })
+                          : null;
 
                       //----------------------- end  ----------------------------
                     },
@@ -248,64 +236,59 @@ class _MyNavigationBarState extends State<MyNavigationBar> {
                     ),
                   ),
                   SizedBox(height: 10),
-                  // ElevatedButton.icon(
-                  //   style: ButtonStyle(
-                  //     backgroundColor:
-                  //         MaterialStateProperty.all(Color(0xFFF58220)),
-                  //   ),
-                  //   onPressed: canClickButtonfin()
-                  //       ? () {
-                  //           print(idpointage);
-                  //           PointageController().sauvegarderPointageFin();
-                  //           print('est ok');
-                  //           _isButtonDisabled = true;
-                  //           QuickAlert.show(
-                  //             context: context,
-                  //             type: QuickAlertType.success,
-                  //             text: 'Pointage effectuée avec succès!',
-                  //           );
-                  //         }
-                  //       : null,
-                  //   icon: const Icon(Icons.logout),
-                  //   label: Text(
-                  //     'Heure de départ',
-                  //     style: GoogleFonts.poppins(
-                  //       textStyle: const TextStyle(
-                  //         fontSize: 20,
-                  //         fontWeight: FontWeight.bold,
-                  //         color: Colors.white,
-                  //       ),
-                  //     ),
-                  //   ),
-                  // ),
-
                   ElevatedButton.icon(
                     style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.all(
-                          _isButtonPressed ? Color(0xFFF58220) : Colors.red),
+                          !heureDepart ? Colors.red : Color(0xFFF58220)),
                     ),
                     onPressed: () {
-                      if (_isButtonPressed == false) {
-                        print(
-                            '-----------------------------------------desactive------------------');
-                        print(idpointage);
-                        PointageController().sauvegarderPointageFin();
-                        print('est ok');
-                        // _onButtonPressed();
-                        // _isButtonPressed1 = true;
-                        Navigator.pop(context);
+                      print(idpointage);
+                      heureDepart
+                          ? PointageController().sauvegarderPointageFin()
+                          : null;
+                      print('est ok');
 
-                        _onButtonPressed();
+                      // Navigator.pop(context);
 
+                      // heureDepart
+                      //     ? QuickAlert.show(
+                      //         context: context,
+                      //         type: QuickAlertType.success,
+                      //         text:
+                      //             'Pointage effectuée avec succès , Bonne route!',
+                      //       )
+                      //     : QuickAlert.show(
+                      //         context: context,
+                      //         type: QuickAlertType.info,
+                      //         text:
+                      //             'Vous etes dejà pointez pour le soir, Bonne Soirée',
+                      //       );
+                      Navigator.pop(context);
+
+                      if (heureDepart) {
                         QuickAlert.show(
                           context: context,
                           type: QuickAlertType.success,
-                          text: 'Pointage effectuée avec succès!',
+                          text: 'Pointage effectuée avec succès , Bonne route!',
                         );
-                        _onButtonPressed();
+                      } else if (!heureDepart && heureArriver) {
+                        QuickAlert.show(
+                          context: context,
+                          type: QuickAlertType.warning,
+                          text: 'Veuillez vous pointez pour le matin d\'abord!',
+                        );
                       } else {
-                        return null;
+                        QuickAlert.show(
+                          context: context,
+                          type: QuickAlertType.info,
+                          text:
+                              'Vous etes dejà pointez pour le soir, Bonne Soirée',
+                        );
                       }
+
+                      setState(() {
+                        heureDepart = false;
+                      });
                     },
                     icon: const Icon(Icons.logout),
                     label: Text(

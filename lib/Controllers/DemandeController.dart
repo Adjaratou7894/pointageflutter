@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:flutter/foundation.dart';
 import 'package:pointageflutter/models/demande.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../models/pointage.dart';
 import '../services/globals.dart';
 
@@ -50,14 +51,19 @@ class DemandeController {
   }
 
 //  Afficher la liste des demandes
-  static Future<List<DemandePermission>> listedemande(int? id) async {
+  static Future<List<DemandePermission>> listedemande() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    int id = prefs.getInt("id")!;
     var url = Uri.parse('http://10.0.2.2:8080/api/permission/liste/$id');
     http.Response response = await http.get(url, headers: headers);
     List responseList = jsonDecode(response.body);
+    print(responseList);
     List<DemandePermission> demandePermissions = [];
     for (Map demandeMap in responseList) {
       DemandePermission demandePermission =
           DemandePermission.fromMap(demandeMap);
+      print('ddddddddddddddddddddddddddddddddd');
+      print(demandeMap['dateSoumission']);
       demandePermissions.add(demandePermission);
     }
     return demandePermissions;

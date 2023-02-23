@@ -2,10 +2,15 @@ import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart';
+import 'package:pointageflutter/AffichageDemande.dart';
 import 'package:pointageflutter/Controllers/AuthController.dart';
+import 'package:pointageflutter/accueil.dart';
+import 'package:pointageflutter/menuTabBar.dart';
 import 'package:pointageflutter/models/ListeData.dart';
 import 'package:pointageflutter/models/demande.dart';
 import 'package:pointageflutter/services/globals.dart';
+import 'package:provider/provider.dart';
 import 'package:quickalert/quickalert.dart';
 import 'package:select_form_field/select_form_field.dart';
 
@@ -20,225 +25,141 @@ class Permission extends StatefulWidget {
 
 class _PermissionState extends State<Permission> {
   List<DemandePermission> demandepermissions = [];
-  getDemandePermission(id) async {
-    demandepermissions = await DemandeController.listedemande(id);
+  getDemandePermission() async {
+    demandepermissions = await DemandeController.listedemande();
+    Provider.of<ListeData>(context, listen: false).demandepermissions =
+        demandepermissions;
+    setState(() {});
+  }
+
+  @override
+  initState() {
+    super.initState();
+    getDemandePermission();
   }
 
   @override
   Widget build(BuildContext context) {
     double hauteur = MediaQuery.of(context).size.height;
     double largeur = MediaQuery.of(context).size.width;
-    return Scaffold(
-        // appBar: AppBar(
-        //   backgroundColor: Color(0xFFF58220),
-        //   leading: IconButton(
-        //     icon: Icon(Icons.arrow_back),
-        //     onPressed: () {
-        //       Navigator.pop(context);
-        //     },
-        //   ),
-        //   // title: Text("Notification"),
-        //   title: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-        //     Text("Notification",
-        //         style: GoogleFonts.poppins(
-        //             textStyle: const TextStyle(fontSize: 30.0))),
-        //   ]),
-        //   elevation: 0,
-        // ),
-        appBar: AppBar(
-          backgroundColor: Color(0xFFF58220),
-          centerTitle: true,
-          title: Text(
-            'Mes demandes',
-            style: GoogleFonts.poppins(
-              textStyle: const TextStyle(
-                fontSize: 17,
-                // fontWeight: FontWeight.bold,
-                color: Colors.white,
-              ),
-            ),
-          ),
-          elevation: 0,
-          leading: IconButton(
-            icon: Icon(Icons.arrow_back),
-            onPressed: () {
-              Navigator.pop(context);
-            },
-          ),
-          actions: [
-            Padding(
-                padding: EdgeInsets.all(12),
-                // padding: const EdgeInsets.only(right: 12.0),
-                child: ElevatedButton(
-                  style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all(Colors.black),
-                  ),
-                  onPressed: () {
-                    showDataAlert();
-                  },
-                  child: Text('Faire Demande',
-                      style: GoogleFonts.poppins(
-                        textStyle: const TextStyle(
-                          fontSize: 15,
-                          // fontWeight: FontWeight.bold,
-                          color: Colors.white,
-                        ),
-                      )),
-                )
-                // child: IconButton(
-                //   icon: Icon(Icons.not_interested),
-                //   onPressed: () {
-                //     // Navigator.pop(context);
-                //   },
-                // ),
-                )
-          ],
-        ),
-        backgroundColor: Color(0xFFF58220),
-        body: Container(
-          child: SingleChildScrollView(
-            child: Column(children: [
-              Container(
-                color: Color(0xFFF58220),
-                height: 10,
-              ),
-              Container(
-                width: largeur,
-                decoration: const BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(30),
-                    topRight: Radius.circular(30),
+    return demandepermissions == null
+        ? const Scaffold(
+            body: Center(child: CircularProgressIndicator()),
+          )
+        : Scaffold(
+            // appBar: AppBar(
+            //   backgroundColor: Color(0xFFF58220),
+            //   leading: IconButton(
+            //     icon: Icon(Icons.arrow_back),
+            //     onPressed: () {
+            //       Navigator.pop(context);
+            //     },
+            //   ),
+            //   // title: Text("Notification"),
+            //   title: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+            //     Text("Notification",
+            //         style: GoogleFonts.poppins(
+            //             textStyle: const TextStyle(fontSize: 30.0))),
+            //   ]),
+            //   elevation: 0,
+            // ),
+            appBar: AppBar(
+              backgroundColor: Color(0xFFF58220),
+              centerTitle: true,
+              title: Text(
+                'Mes demandes',
+                style: GoogleFonts.poppins(
+                  textStyle: const TextStyle(
+                    fontSize: 17,
+                    // fontWeight: FontWeight.bold,
+                    color: Colors.white,
                   ),
                 ),
-                child: Column(
-                  children: [
-                    autorisation(largeur, hauteur, false),
-                    autorisation(largeur, hauteur, true),
-                    autorisation(largeur, hauteur, false),
-                    autorisation(largeur, hauteur, true),
-                    autorisation(largeur, hauteur, false),
-                    autorisation(largeur, hauteur, true),
-                  ],
-                ),
-              )
-            ]),
-          ),
-        ));
-  }
-
-  Container autorisation(double largeur, double hauteur, bool cg) {
-    return Container(
-        margin: EdgeInsets.all(20),
-        // height: 80,
-        child: Column(
-          children: [
-            Container(
-              decoration: BoxDecoration(
-                // color: Colors.white,
-                borderRadius: BorderRadius.circular(10),
-                color: cg ? Color(0xFFD9D9D9) : Colors.white,
-                boxShadow: const [
-                  BoxShadow(
-                    color: Colors.black26,
-                    offset: Offset(2, -2),
-                    blurRadius: 8,
-                  ),
-                ],
               ),
-              child: Column(
-                children: [
-                  SizedBox(
-                    width: largeur * 0.01,
-                  ),
-                  Container(
-
-                      //
-                      child: Row(
-                    children: [
-                      // Container(
-                      //     // color: Colors.blue,
-                      //     // width: largeur * 0.28,
-                      //     // height: 20,
-                      //     child: const CircleAvatar(
-                      //   radius: 28,
-                      //   backgroundColor: Colors.orange,
-                      //   child: CircleAvatar(
-                      //     radius: 25,
-                      //     backgroundImage: AssetImage("assets/images/adja.jpg"),
-                      //   ),
-                      // )
-                      // ),
-                      // Container(
-                      //   color: Colors.yellow,
-                      //   width: largeur * 0.5,
-                      //   height: 20,
-                      // ),
-                      SizedBox(
-                        width: largeur * 0.02,
+              elevation: 0,
+              leading: IconButton(
+                icon: Icon(Icons.arrow_back),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => MyNavigationBar(),
+                    ),
+                  );
+                },
+              ),
+              actions: [
+                Padding(
+                    padding: EdgeInsets.all(12),
+                    // padding: const EdgeInsets.only(right: 12.0),
+                    child: ElevatedButton(
+                      style: ButtonStyle(
+                        backgroundColor:
+                            MaterialStateProperty.all(Colors.black),
                       ),
-                      Expanded(
-                        child: Container(
-                          alignment: Alignment.center,
-                          child: Column(
-                            children: [
-                              Row(
-                                children: [
-                                  Text("Fatoumata Kaloga",
-                                      style: GoogleFonts.poppins(
-                                          textStyle: const TextStyle(
-                                              fontSize: 18.0,
-                                              fontWeight: FontWeight.bold))),
-                                  SizedBox(
-                                    width: largeur * 0.02,
-                                  ),
-                                  Text("01/02/2023",
-                                      style: GoogleFonts.poppins(
-                                          textStyle:
-                                              const TextStyle(fontSize: 15.0))),
-                                ],
-                              ),
-                              SizedBox(
-                                height: hauteur * 0.01,
-                              ),
-                              Row(
-                                children: [
-                                  // Text(
-                                  //     "Votre formatrice a validée votre demande de permission ",
-                                  //     textAlign: TextAlign.center,
-                                  //     style: GoogleFonts.poppins(
-                                  //         textStyle: const TextStyle(
-                                  //       fontSize: 20.0,
-                                  //     ))),
-                                  Expanded(
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: <Widget>[
-                                        Text(
-                                            "Votre formatrice a validée votre demande de permission ",
-                                            // textAlign: TextAlign.center,
-                                            style: GoogleFonts.poppins(
-                                                textStyle: const TextStyle(
-                                              fontSize: 14.0,
-                                            ))),
-                                      ],
-                                    ),
-                                  ),
-                                ],
-                              )
-                            ],
-                          ),
-                        ),
-                      )
-                    ],
-                  ))
-                ],
-              ),
-            )
-          ],
-        ));
+                      onPressed: () {
+                        showDataAlert();
+                      },
+                      child: Text('Faire Demande',
+                          style: GoogleFonts.poppins(
+                            textStyle: const TextStyle(
+                              fontSize: 15,
+                              // fontWeight: FontWeight.bold,
+                              color: Colors.white,
+                            ),
+                          )),
+                    )
+                    // child: IconButton(
+                    //   icon: Icon(Icons.not_interested),
+                    //   onPressed: () {
+                    //     // Navigator.pop(context);
+                    //   },
+                    // ),
+                    )
+              ],
+            ),
+            // backgroundColor: Color(0xFFF58220),
+            body: Container(
+              child: Column(children: [
+                // Container(
+                //   color: Color(0xFFF58220),
+                //   height: 10,
+                // ),
+                Flexible(child: Consumer<ListeData>(
+                  builder: (context, ListeData, child) {
+                    return SingleChildScrollView(
+                      child: Wrap(
+                        children: [
+                          for (int i = 0; i < demandepermissions.length; i++)
+                            AffichageDemande(
+                              demandePermission: demandepermissions[i],
+                              listeData: ListeData,
+                            )
+                        ],
+                      ),
+                    );
+                  },
+                ))
+                // Container(
+                //   width: largeur,
+                //   decoration: const BoxDecoration(
+                //     color: Colors.white,
+                //     borderRadius: BorderRadius.only(
+                //       topLeft: Radius.circular(30),
+                //       topRight: Radius.circular(30),
+                //     ),
+                //   ),
+                //   child: Column(
+                //     children: [
+                //       autorisation(largeur, hauteur, false),
+
+                //     ],
+                //   ),
+                // )
+              ]),
+            ));
   }
+
   // popup qui s'affiche lorsque nous allons faire une demande de permission
 
   showDataAlert() {
@@ -398,15 +319,17 @@ class _TttttState extends State<Ttttt> {
                   onPressed: () async {
                     if (motifController != "" &&
                         // ignore: unrelated_type_equality_checks
-                        descriptionMotifController.text != "") {
+                        descriptionMotifController.text.trim() != "") {
                       //--------------avant-----------------------
                       demandeController.permission(
                           id, motifController, descriptionMotifController.text);
                       //-----------------------reponse--------------------------
-                      var response = await demandeController.permission(
+                      final response = await demandeController.permission(
                           id, motifController, descriptionMotifController.text);
 
-                      if (response.statusCode == 200) {}
+                      if (response.statusCode == 200) {
+                        print("$response");
+                      }
                     } else {
                       setState(() {
                         descriptionMotif = true;
@@ -417,14 +340,6 @@ class _TttttState extends State<Ttttt> {
                     // if (formKey.currentState.validate()) {
                     // Traitement des données ici
                     // }
-
-                    // Navigator.of(context).pop();
-
-                    QuickAlert.show(
-                      context: context,
-                      type: QuickAlertType.success,
-                      text: 'Demande effectuée avec succès!',
-                    );
                   },
                   style: ElevatedButton.styleFrom(
                     primary: Color(0xFFF58220),

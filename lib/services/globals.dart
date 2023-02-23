@@ -7,3 +7,5 @@ int status = 0;
 
 int usId = 0;
 int? pointageId;
+String? nomapprenant;
+String? prenomapprenant;

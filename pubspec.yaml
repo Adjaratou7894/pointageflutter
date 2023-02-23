@@ -53,7 +53,7 @@ dependencies:
   flutter_secure_storage: ^7.0.1
   select_form_field: "^2.2.0"
   quickalert: ^1.0.1
-  
+  intl: ^0.17.0
 
 dev_dependencies:
   flutter_test:

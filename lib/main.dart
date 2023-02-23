@@ -35,7 +35,7 @@ class MyApp extends StatelessWidget {
         // home: const Accueil(),
         // home: const Pointage(),
         // home: const AccueilPrincipale(),
-    
+
         // home: MyNavigationBar(),
         // home: Notifications(),
         // home: const Profil(),

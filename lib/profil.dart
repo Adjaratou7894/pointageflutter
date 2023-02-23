@@ -3,6 +3,9 @@ import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import 'package:intl/intl.dart';
+import 'package:pointageflutter/services/globals.dart';
+
 class Profil extends StatefulWidget {
   const Profil({super.key});
 
@@ -11,11 +14,20 @@ class Profil extends StatefulWidget {
 }
 
 class _ProfilState extends State<Profil> {
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   prenomapprenant;
+  //   nomapprenant;
+  // }
+
   @override
   Widget build(BuildContext context) {
     final IconData edit = IconData(0xe21a, fontFamily: 'MaterialIcons');
     double hauteur = MediaQuery.of(context).size.height;
     double largeur = MediaQuery.of(context).size.width;
+    String datedujour = getDatedujour();
+    
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Color(0xFFF58220),
@@ -87,7 +99,7 @@ class _ProfilState extends State<Profil> {
                         SizedBox(
                           height: hauteur * 0.01,
                         ),
-                        Text("Adjaratou Amadou  DIALLO",
+                        Text('$nomapprenant $prenomapprenant ',
                             style: GoogleFonts.poppins(
                                 textStyle: const TextStyle(
                                     fontSize: 20.0,
@@ -257,7 +269,7 @@ class _ProfilState extends State<Profil> {
                             SizedBox(
                               width: largeur * 0.38,
                             ),
-                            Text("01/02/2023",
+                            Text('$datedujour',
                                 style: GoogleFonts.poppins(
                                     textStyle: const TextStyle(
                                   fontSize: 20.0,
@@ -423,4 +435,11 @@ class _ProfilState extends State<Profil> {
       ),
     );
   }
+}
+
+String getDatedujour() {
+  var now = DateTime.now();
+  var formatter = DateFormat('dd-MM-yyyy');
+  String formattedDate = formatter.format(now);
+  return formattedDate;
 }

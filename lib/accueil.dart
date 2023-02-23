@@ -303,7 +303,7 @@ class _AccueilState extends State<Accueil> {
                                             width: largeur * 0.02,
                                           ),
                                           Expanded(
-                                            child: Text('15',
+                                            child: Text('0',
                                                 style: GoogleFonts.poppins(
                                                   textStyle: const TextStyle(
                                                     fontSize: 12,
@@ -456,7 +456,7 @@ class _AccueilState extends State<Accueil> {
                               child: Container(
                                 alignment: Alignment.centerRight,
                                 child: const Text(
-                                  "3/6",
+                                  "0/6",
                                   style: TextStyle(
                                     fontSize: 20,
                                     fontWeight: FontWeight.bold,
@@ -517,7 +517,7 @@ class _AccueilState extends State<Accueil> {
                               alignment: Alignment.centerRight,
 
                               child: const Text(
-                                "3/6",
+                                "0/6",
                                 style: TextStyle(
                                   fontSize: 20,
                                   fontWeight: FontWeight.bold,
@@ -581,7 +581,7 @@ class _AccueilState extends State<Accueil> {
                               alignment: Alignment.centerRight,
 
                               child: const Text(
-                                "3/6",
+                                "0/6",
                                 style: TextStyle(
                                   fontSize: 20,
                                   fontWeight: FontWeight.bold,

@@ -1,11 +1,13 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../services/globals.dart';
 
 class AuthController {
   Future<http.Response> Connexion(String username, String password) async {
     Map data = {'username': username, 'password': password};
+    SharedPreferences prefs = await SharedPreferences.getInstance();
     // print(data);
     // var jsonResponse = null;
     Map<String, String> headers = {"Content-Type": "application/json"};
@@ -17,6 +19,15 @@ class AuthController {
     try {
       if (response.statusCode == 200) {
         var loginArr = json.decode(response.body);
+        var name = jsonDecode(response.body);
+        var lastname = jsonDecode(response.body);
+        prefs.setInt("id", loginArr['id']);
+        prefs.setString("nom", name['nom']);
+        prefs.setString("prenom", lastname['prenom']);
+        nomapprenant = name['nom'];
+        prenomapprenant = lastname['prenom'];
+        print(name['nom']);
+        print(lastname['prenom']);
 
         //print(loginArr['id']);
         usId = loginArr['id'];
