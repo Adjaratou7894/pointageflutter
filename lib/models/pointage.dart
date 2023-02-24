@@ -31,7 +31,7 @@ class EnregistrementPointage {
 
   int? idpointage;
   String? date;
-  Null? heurefin;
+  String? heurefin;
   Null? images;
   Null? object;
   int? latitude;

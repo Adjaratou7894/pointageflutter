@@ -13,7 +13,7 @@ class PointageController {
     Map<String, dynamic> data = {'longetude': 0.0, 'latitude': 0.0};
     Map<String, String> headers = {"Content-Type": "application/json"};
     var body = jsonEncode(data);
-     SharedPreferences prefs = await SharedPreferences.getInstance();
+    SharedPreferences prefs = await SharedPreferences.getInstance();
 
     var url =
         Uri.parse('http://10.0.2.2:8080/api/pointage/sauvegarderpointage/$id');
@@ -30,7 +30,25 @@ class PointageController {
     if (response.statusCode == 200) {
       final responseData = json.decode(response.body);
       Map<String, dynamic> responseMap = responseData as Map<String, dynamic>;
-     pointageId =  responseMap['idpointage']; // Affiche la valeur associée à la clé 'key1' dans la réponse JSON
+      // arrive = responseMap['date']; //Afficher l'heure d'arrivée
+
+      String arrive = responseMap[
+          'date']; // suppose que responseMap['date'] est une chaîne de caractères qui représente une date et une heure au format ISO 8601
+      // DateTime date = DateTime.parse(arrive);
+      DateTime date = DateTime.now()
+          .toLocal(); // convertit la chaîne de caractères en un objet DateTime
+
+      int heure = date.hour; // extrait l'heure de l'objet DateTime
+      int minute = date.minute; // extrait les minutes
+      String minuteString = minute.toString().padLeft(2,
+          '0'); // formatte la valeur des minutes avec un zéro devant si nécessaire
+      print("--------------------test-----------------");
+      print("Heure : $heure:$minuteString"); // affiche l'heure
+      // print("--------------------test-----------------");
+      // print(arrive);
+
+      pointageId = responseMap[
+          'idpointage']; // Affiche la valeur associée à la clé 'key1' dans la réponse JSON
       print("ca marche OK");
       print(response.body);
       // pointageId = response.body.get()
@@ -69,8 +87,18 @@ class PointageController {
 
     if (response.statusCode == 200) {
       final responseData = json.decode(response.body);
-      print("ajout heuredefin");
+      Map<String, dynamic> responseMap = responseData as Map<String, dynamic>;
+      // print("ajout heuredefin");
       print(response.body);
+      String depart = responseMap['heurefin'];
+      DateTime heurefin = DateTime.now().toLocal();
+
+      int heured = heurefin.hour; // extrait l'heure de l'objet DateTime
+      int minuted = heurefin.minute; // extrait les minutes
+
+      print("--------------------test-----------------");
+      print("Heure : $heured:$minuted"); // affiche l'heure
+
       // final enregistrementPointage =
       //     EnregistrementPointage.fromJson(responseData);
       // print("test");

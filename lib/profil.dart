@@ -26,8 +26,9 @@ class _ProfilState extends State<Profil> {
     final IconData edit = IconData(0xe21a, fontFamily: 'MaterialIcons');
     double hauteur = MediaQuery.of(context).size.height;
     double largeur = MediaQuery.of(context).size.width;
+
     String datedujour = getDatedujour();
-    
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Color(0xFFF58220),
@@ -343,9 +344,9 @@ class _ProfilState extends State<Profil> {
                                             color: Colors.black,
                                             fontWeight: FontWeight.bold))),
                                 SizedBox(
-                                  width: largeur * 0.39,
+                                  width: largeur * 0.35,
                                 ),
-                                Text("07:40",
+                                Text('$heure:$minute',
                                     style: GoogleFonts.poppins(
                                         textStyle: const TextStyle(
                                       fontSize: 20.0,
@@ -372,12 +373,12 @@ class _ProfilState extends State<Profil> {
                                             color: Colors.black,
                                             fontWeight: FontWeight.bold))),
                                 SizedBox(
-                                  width: largeur * 0.38,
+                                  width: largeur * 0.35,
                                 ),
-                                Text("17:40",
+                                Text('$heured:$minuted',
                                     style: GoogleFonts.poppins(
                                         textStyle: const TextStyle(
-                                      fontSize: 20.0,
+                                      fontSize: 20,
                                       color: Colors.black,
                                     ))),
                               ],
