@@ -4,7 +4,9 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import 'package:intl/intl.dart';
+import 'package:pointageflutter/Controllers/pointageController.dart';
 import 'package:pointageflutter/services/globals.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Profil extends StatefulWidget {
   const Profil({super.key});
@@ -14,12 +16,49 @@ class Profil extends StatefulWidget {
 }
 
 class _ProfilState extends State<Profil> {
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   prenomapprenant;
-  //   nomapprenant;
+  late SharedPreferences sharedPreferences;
+
+  int? heure;
+  String? minute;
+  int? heured;
+  String? minuted;
+
+  Future<Widget?> getHeureMinuteArrive() async {
+    sharedPreferences = await SharedPreferences.getInstance();
+    heure = sharedPreferences.getInt("heure");
+    minute = sharedPreferences.getString("minute");
+    return Text('$heure:$minute',
+        style: GoogleFonts.poppins(
+            textStyle: const TextStyle(
+          fontSize: 20.0,
+          color: Colors.black,
+        )));
+  }
+
+  Future<Widget?> getHeureMinuteDepart() async {
+    sharedPreferences = await SharedPreferences.getInstance();
+    heured = sharedPreferences.getInt("heured");
+    minuted = sharedPreferences.getString("minuted");
+    return Text('$heured:$minuted',
+        style: GoogleFonts.poppins(
+            textStyle: const TextStyle(
+          fontSize: 20.0,
+          color: Colors.black,
+        )));
+  }
+  // Future<int?> getMinute() async {
+  //   sharedPreferences = await SharedPreferences.getInstance();
+  //   heure = sharedPreferences.getInt("heure");
+  //   minute = sharedPreferences.getInt("minute");
+  //   return minute;
   // }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    //getDate();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -346,12 +385,22 @@ class _ProfilState extends State<Profil> {
                                 SizedBox(
                                   width: largeur * 0.35,
                                 ),
-                                Text('$heure:$minute',
-                                    style: GoogleFonts.poppins(
-                                        textStyle: const TextStyle(
-                                      fontSize: 20.0,
-                                      color: Colors.black,
-                                    ))),
+                                FutureBuilder(
+                                    future: getHeureMinuteArrive(),
+                                    builder: (BuildContext context,
+                                        AsyncSnapshot snapshot) {
+                                      if (snapshot.hasData) {
+                                        return snapshot.data;
+                                      } else {
+                                        return CircularProgressIndicator();
+                                      }
+                                    })
+                                // Text('$heure:$minute',
+                                //     style: GoogleFonts.poppins(
+                                //         textStyle: const TextStyle(
+                                //       fontSize: 20.0,
+                                //       color: Colors.black,
+                                //     ))),
                               ],
                             ),
                             SizedBox(
@@ -375,12 +424,16 @@ class _ProfilState extends State<Profil> {
                                 SizedBox(
                                   width: largeur * 0.35,
                                 ),
-                                Text('$heured:$minuted',
-                                    style: GoogleFonts.poppins(
-                                        textStyle: const TextStyle(
-                                      fontSize: 20,
-                                      color: Colors.black,
-                                    ))),
+                                FutureBuilder(
+                                    future: getHeureMinuteDepart(),
+                                    builder: (BuildContext context,
+                                        AsyncSnapshot snapshot) {
+                                      if (snapshot.hasData) {
+                                        return snapshot.data;
+                                      } else {
+                                        return CircularProgressIndicator();
+                                      }
+                                    })
                               ],
                             )
                           ],

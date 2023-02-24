@@ -42,6 +42,8 @@ class PointageController {
       int minute = date.minute; // extrait les minutes
       String minuteString = minute.toString().padLeft(2,
           '0'); // formatte la valeur des minutes avec un zéro devant si nécessaire
+      prefs.setInt("heure", heure);
+      prefs.setString("minute", minuteString);
       print("--------------------test-----------------");
       print("Heure : $heure:$minuteString"); // affiche l'heure
       // print("--------------------test-----------------");
@@ -71,6 +73,7 @@ class PointageController {
     // try {
     Map<String, dynamic> data = {'longetude': 0.0, 'latitude': 0.0};
     Map<String, String> headers = {"Content-Type": "application/json"};
+     SharedPreferences prefs = await SharedPreferences.getInstance();
     var body = jsonEncode(data);
 
     var url = Uri.parse(
@@ -95,9 +98,13 @@ class PointageController {
 
       int heured = heurefin.hour; // extrait l'heure de l'objet DateTime
       int minuted = heurefin.minute; // extrait les minutes
+      String minutedeString = minuted.toString().padLeft(2,
+          '0'); // formatte la valeur des minutes avec un zéro devant si nécessaire
+      prefs.setInt("heured", heured);
+      prefs.setString("minuted", minutedeString);
 
       print("--------------------test-----------------");
-      print("Heure : $heured:$minuted"); // affiche l'heure
+      print("Heure : $heured:$minutedeString "); // affiche l'heure
 
       // final enregistrementPointage =
       //     EnregistrementPointage.fromJson(responseData);

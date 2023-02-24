@@ -13,9 +13,12 @@ String? prenomapprenant;
 // String? depart;
 DateTime date = DateTime.now()
     .toLocal(); // convertit la chaîne de caractères en un objet DateTime
-
+String minuteString = minute.toString().padLeft(2,
+          '0');
 int heure = date.hour; // extrait l'heure de l'objet DateTime
 int minute = date.minute; // extrait les minutes
+String minutedeString = minuted.toString().padLeft(2,
+          '0');
 DateTime heurefin = DateTime.now().toLocal();
 
 int heured = heurefin.hour; // extrait l'heure de l'objet DateTime
