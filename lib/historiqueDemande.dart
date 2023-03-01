@@ -321,15 +321,20 @@ class _TttttState extends State<Ttttt> {
                         // ignore: unrelated_type_equality_checks
                         descriptionMotifController.text.trim() != "") {
                       //--------------avant-----------------------
-                      demandeController.permission(
-                          id, motifController, descriptionMotifController.text);
+                      // demandeController.permission(
+                      //     id, motifController, descriptionMotifController.text);
                       //-----------------------reponse--------------------------
                       final response = await demandeController.permission(
                           id, motifController, descriptionMotifController.text);
+                      // QuickAlert.show(
+                      //     context: context,
+                      //     type: QuickAlertType.success,
+                      //     text: 'Demande soumise avec succès!');
+                      print(
+                          '--------------------------------------------object');
+                      print(response);
 
-                      if (response.statusCode == 200) {
-                        print("$response");
-                      }
+                      if (response.statusCode == 200) {}
                     } else {
                       setState(() {
                         descriptionMotif = true;
@@ -340,6 +345,7 @@ class _TttttState extends State<Ttttt> {
                     // if (formKey.currentState.validate()) {
                     // Traitement des données ici
                     // }
+                    Navigator.pop(context);
                   },
                   style: ElevatedButton.styleFrom(
                     primary: Color(0xFFF58220),
