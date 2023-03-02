@@ -24,7 +24,7 @@ class _ConnexionState extends State<Connexion> {
   bool username = false;
   bool password = false;
   bool erreur = false;
-   bool secret = true;
+  bool secret = true;
   @override
   Widget build(BuildContext context) {
     double hauteur = MediaQuery.of(context).size.height;
@@ -194,27 +194,23 @@ class _ConnexionState extends State<Connexion> {
                     ),
                     child: TextField(
                       controller: passwordController,
-                       obscureText: secret,
-                              style: const TextStyle(fontSize: 22),
-                            
-                                  
-                     
-                      decoration:  InputDecoration(
+                      obscureText: secret,
+                      style: const TextStyle(fontSize: 22),
+
+                      decoration: InputDecoration(
                         suffixIcon: IconButton(
-                                      onPressed: () {
-                                        setState(() {
-                                          secret = !secret;
-                                        });
-                                      },
-                                      icon: Icon(
-                                        !secret
-                                            ? Icons.visibility_off
-                                            : Icons.visibility,
-                                        color: Colors.grey,
-                                      )),
+                            onPressed: () {
+                              setState(() {
+                                secret = !secret;
+                              });
+                            },
+                            icon: Icon(
+                              !secret ? Icons.visibility_off : Icons.visibility,
+                              color: Colors.grey,
+                            )),
                         contentPadding: EdgeInsets.symmetric(horizontal: 20),
                         border: InputBorder.none,
-                        
+
                         // enabledBorder: OutlineInputBorder(),
                         // focusedBorder: OutlineInputBorder(),
                         labelStyle: TextStyle(
@@ -281,6 +277,17 @@ class _ConnexionState extends State<Connexion> {
                               context,
                               MaterialPageRoute(
                                 builder: (context) => MyNavigationBar(),
+                              ),
+                            );
+                          }
+                          if (response.statusCode == 403) {
+                            // -----------------MESSAGE D'ERREUR ------------------
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                backgroundColor: Colors.red,
+                                content:
+                                    Text("Username ou mot de passe incorrect"),
+                                elevation: 10,
                               ),
                             );
                           }

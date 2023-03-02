@@ -6,6 +6,7 @@ import '../services/globals.dart';
 
 class AuthController {
   Future<http.Response> Connexion(String username, String password) async {
+    String error;
     Map data = {'username': username, 'password': password};
     SharedPreferences prefs = await SharedPreferences.getInstance();
     // print(data);
@@ -16,6 +17,8 @@ class AuthController {
     var url = Uri.parse(baseURL + '/auth/connexion');
     var response = await http.post(url, body: body, headers: headers);
 
+    print("------------------------------response---------------------------");
+    print(response.statusCode);
     try {
       if (response.statusCode == 200) {
         var loginArr = json.decode(response.body);
