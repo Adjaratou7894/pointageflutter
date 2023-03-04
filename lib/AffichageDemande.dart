@@ -12,7 +12,6 @@ import 'package:provider/provider.dart';
 import 'package:quickalert/quickalert.dart';
 import 'package:select_form_field/select_form_field.dart';
 
-
 class AffichageDemande extends StatefulWidget {
   AffichageDemande(
       {super.key,
@@ -117,16 +116,16 @@ class _AffichageDemandeState extends State<AffichageDemande> {
                                   Text("${widget.demandePermission.motif}",
                                       style: GoogleFonts.poppins(
                                           textStyle: const TextStyle(
-                                              fontSize: 18.0,
+                                              fontSize: 20.0,
                                               fontWeight: FontWeight.bold))),
                                   SizedBox(
-                                    width: largeur * 0.02,
+                                    width: largeur * 0.25,
                                   ),
                                   Text(
                                       "${widget.demandePermission.dateSoumission}",
                                       style: GoogleFonts.poppins(
                                           textStyle:
-                                              const TextStyle(fontSize: 15.0))),
+                                              const TextStyle(fontSize: 18.0))),
                                 ],
                               ),
                               SizedBox(
@@ -152,7 +151,7 @@ class _AffichageDemandeState extends State<AffichageDemande> {
                                             // textAlign: TextAlign.center,
                                             style: GoogleFonts.poppins(
                                                 textStyle: const TextStyle(
-                                              fontSize: 14.0,
+                                              fontSize: 20.0,
                                             ))),
                                       ],
                                     ),

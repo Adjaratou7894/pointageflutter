@@ -8,6 +8,7 @@ import 'package:pointageflutter/pointage.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pointageflutter/profil.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:async';
 import '../services/globals.dart';
 
@@ -62,21 +63,6 @@ class _MyNavigationBarState extends State<MyNavigationBar> {
     });
   }
 
-  // bool _isDisabled = false;
-  // void _onPressed() {
-  //  if (!_isDisabled) {
-  //     setState(() {
-  //       _isDisabled = true;
-  //     });
-  //        Timer(Duration(seconds:5),() {
-  //     setState(() {
-  //       _isDisabled = false;
-  //     });
-  //   });
-  //   }
-
-  // }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -128,6 +114,8 @@ class _MyNavigationBarState extends State<MyNavigationBar> {
           backgroundColor: Colors.white,
           selectedItemColor: Color(0xFFF58220),
           unselectedItemColor: Colors.black,
+          selectedFontSize: 18,
+          unselectedFontSize: 18,
           onTap: _onItemTapped,
         ),
       ),
@@ -201,12 +189,18 @@ class _MyNavigationBarState extends State<MyNavigationBar> {
 
                       // PointageController(). (id);
                       Navigator.pop(context);
+                      // QuickAlert.show(
+                      //         context: context,
+                      //         type: QuickAlertType.success,
+                      //         text: 'Pointage effectuée avec succès!')
 
                       heureArriver
                           ? QuickAlert.show(
                               context: context,
-                              type: QuickAlertType.success,
-                              text: 'Pointage effectuée avec succès!')
+                              type: QuickAlertType.info,
+                              text:
+                                  'Pointage effectuée avec succès,Vous êtes en retard',
+                            )
                           : QuickAlert.show(
                               context: context,
                               type: QuickAlertType.info,
@@ -423,3 +417,46 @@ _getCurrentLocation() async {
 //   var hour = now.hour;
 //   return _isButtonPressed1;
 // }
+
+
+  // // --------------------------methode------------------------------------------
+  // Future<PopupMenuItem<String>?> getHeureMinuteArrive() async {
+  //   sharedPreferences = await SharedPreferences.getInstance();
+  //   heure = sharedPreferences.getInt("heure")!;
+  //   minute = sharedPreferences.getString("minute");
+  //   String heureArrivee = '$heure:$minute';
+  //   if (heure != null && minute != null) {
+  //     if (heure > 9) {
+  //       print(" heure superieur");
+  //       return PopupMenuItem(
+  //         value: heureArrivee,
+  //         child: Text(
+  //           heureArrivee,
+  //           style: GoogleFonts.poppins(
+  //             textStyle: const TextStyle(
+  //               fontSize: 20.0,
+  //               color: Colors.black,
+  //             ),
+  //           ),
+  //         ),
+  //         // Affiche un info popup si l'heure d'arrivée est supérieure à 9h00
+  //          retardErreur(context),
+  //       );
+  //     } else if (heure < 9) {
+  //       QuickAlert.show(
+  //         context: context,
+  //         type: QuickAlertType.info,
+  //         text: 'Erreur',
+  //       );
+  //     } else {
+  //       // L'heure d'arrivée est inférieure à 9h00
+  //       QuickAlert.show(
+  //           context: context,
+  //           type: QuickAlertType.success,
+  //           text: 'Pointage effectuée avec succès!');
+  //     }
+  //   } else {
+  //     // Les préférences de l'utilisateur ne contiennent pas d'heure d'arrivée
+  //     return null;
+  //   }
+  // }

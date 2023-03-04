@@ -62,7 +62,7 @@ class DemandeController {
     for (Map demandeMap in responseList) {
       DemandePermission demandePermission =
           DemandePermission.fromMap(demandeMap);
-      print('ddddddddddddddddddddddddddddddddd');
+      // print('ddddddddddddddddddddddddddddddddd');
       print(demandeMap['dateSoumission']);
       demandePermissions.add(demandePermission);
     }

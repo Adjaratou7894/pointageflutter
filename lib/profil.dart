@@ -46,6 +46,7 @@ class _ProfilState extends State<Profil> {
           color: Colors.black,
         )));
   }
+
   // Future<int?> getMinute() async {
   //   sharedPreferences = await SharedPreferences.getInstance();
   //   heure = sharedPreferences.getInt("heure");
@@ -144,7 +145,7 @@ class _ProfilState extends State<Profil> {
                                 textStyle: const TextStyle(
                                     fontSize: 20.0,
                                     fontWeight: FontWeight.bold))),
-                        Text("Apprenant",
+                        Text("Apprenante",
                             style: GoogleFonts.poppins(
                                 textStyle: const TextStyle(
                               fontSize: 18.0,
@@ -270,7 +271,7 @@ class _ProfilState extends State<Profil> {
                             SizedBox(
                               width: largeur * 0.25,
                             ),
-                            Text("Kalanso 2",
+                            Text("Kalanso 3",
                                 style: GoogleFonts.poppins(
                                     textStyle: const TextStyle(
                                   fontSize: 20.0,

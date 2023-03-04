@@ -64,7 +64,7 @@ class _AccueilState extends State<Accueil> {
                               width: largeur * 0.02,
                             ),
                             Text(
-                              'Kalanso2',
+                              'Kalanso3',
                               style: GoogleFonts.poppins(
                                 textStyle: const TextStyle(
                                   fontSize: 30,

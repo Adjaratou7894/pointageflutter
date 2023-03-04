@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -179,10 +181,12 @@ class Ttttt extends StatefulWidget {
 }
 
 class _TttttState extends State<Ttttt> {
+  bool demandeactive = false;
   bool descriptionMotif = false;
   bool erreur = false;
   String motifController = "";
   DemandeController demandeController = DemandeController();
+  Timer? _timer;
 
   var id = usId;
   final formKey = GlobalKey<FormState>();
@@ -201,6 +205,19 @@ class _TttttState extends State<Ttttt> {
       'textStyle': TextStyle(color: Colors.red),
     },
   ];
+
+  @override
+  void initState() {
+    super.initState();
+    usId;
+
+    // Définir une minuterie pour demain à minuit pour activer le bouton automatique demain
+
+    // Start the timer for 24 hours
+    _timer = Timer(Duration(hours: 24), () {
+      bool demandeactive = false;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -319,36 +336,38 @@ class _TttttState extends State<Ttttt> {
                   onPressed: () async {
                     if (motifController != "" &&
                         // ignore: unrelated_type_equality_checks
-                        descriptionMotifController.text.trim() != "") {
-                      //--------------avant-----------------------
-                      // demandeController.permission(
-                      //     id, motifController, descriptionMotifController.text);
+                        descriptionMotifController.text.trim() != "" &&
+                        demandeactive != true) {
+                      QuickAlert.show(
+                          context: context,
+                          type: QuickAlertType.success,
+                          text: 'Demande soumise avec succès!');
+                      setState(() {
+                      
+                        !descriptionMotif;
+                        erreur = true;
+
+                        demandeactive = true;
+                      });
                       //-----------------------reponse--------------------------
                       final response = await demandeController.permission(
                           id, motifController, descriptionMotifController.text);
-                      // QuickAlert.show(
-                      //     context: context,
-                      //     type: QuickAlertType.success,
-                      //     text: 'Demande soumise avec succès!');
-                      print(
-                          '--------------------------------------------object');
-                      print(response);
 
-                      if (response.statusCode == 200) {}
-                    } else {
                       setState(() {
-                        descriptionMotif = true;
-                        erreur = true;
+                        descriptionMotifController.text = "";
                       });
+                      print(
+                          '--------------------voir si ça change----------------------------');
+
+                      // if (response.statusCode == 200) {}
                     }
 
-                    // if (formKey.currentState.validate()) {
-                    // Traitement des données ici
-                    // }
                     Navigator.pop(context);
                   },
                   style: ElevatedButton.styleFrom(
-                    primary: Color(0xFFF58220),
+                    primary: !demandeactive
+                        ? Color(0xFFF58220)
+                        : Color.fromARGB(255, 0, 0, 0),
                     // fixedSize: Size(250, 50),
                   ),
                   child: Text(
