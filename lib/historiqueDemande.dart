@@ -338,12 +338,17 @@ class _TttttState extends State<Ttttt> {
                         // ignore: unrelated_type_equality_checks
                         descriptionMotifController.text.trim() != "" &&
                         demandeactive != true) {
-                      QuickAlert.show(
-                          context: context,
-                          type: QuickAlertType.success,
-                          text: 'Demande soumise avec succès!');
+                      demandeactive
+                          ? QuickAlert.show(
+                              context: context,
+                              type: QuickAlertType.info,
+                              text:
+                                  'Une demande est déja soumise pour vous aujourd\' hui ,Impossible de faire deux demandes par jour!')
+                          : QuickAlert.show(
+                              context: context,
+                              type: QuickAlertType.success,
+                              text: 'Demande soumise avec succès!');
                       setState(() {
-                      
                         !descriptionMotif;
                         erreur = true;
 

@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:pointageflutter/Controllers/AuthController.dart';
 import 'package:pointageflutter/accueil.dart';
 
@@ -58,13 +59,12 @@ class _ConnexionState extends State<Connexion> {
                   Container(
                     margin: const EdgeInsets.only(top: 20),
                     alignment: Alignment.center,
-                    child: const Text(
+                    child: Text(
                       'Connexion',
-                      style: TextStyle(
+                      style: GoogleFonts.poppins(
                         fontSize: 30,
                         fontWeight: FontWeight.bold,
                         color: Colors.black,
-                        fontFamily: 'DayRoman',
                       ),
                     ),
                   ),
@@ -111,15 +111,22 @@ class _ConnexionState extends State<Connexion> {
                   !username
                       ? Text(
                           defaut,
-                          style: TextStyle(color: Colors.blueAccent),
+                          style: GoogleFonts.poppins(
+                              color: Colors.blueAccent, fontSize: 16
+                              // fontWeight: FontWeight.bold,
+                              ),
                         )
                       : Container(),
                   erreur
                       ? Text(
                           error,
-                          style: TextStyle(color: Colors.red),
+                          style: GoogleFonts.poppins(
+                              color: Colors.red, fontSize: 16
+                              // fontWeight: FontWeight.bold,
+                              ),
                         )
                       : Container(),
+                  const SizedBox(height: 10.0),
                   Container(
                     width: 350,
                     // color: Colors.blue,
@@ -302,14 +309,16 @@ class _ConnexionState extends State<Connexion> {
                         // Traitement des données ici
                         // }
                       },
-                      child: const Text(
+                      child: Text(
                         'Se connecter',
-                        style: TextStyle(fontSize: 25),
+                        style: GoogleFonts.poppins(fontSize: 20
+                            // fontWeight: FontWeight.bold,
+                            ),
                       ),
                     ),
                   ),
                   SizedBox(
-                    height: hauteur * .02,
+                    height: hauteur * .05,
                   ),
                   Row(
                     children: [
@@ -328,9 +337,8 @@ class _ConnexionState extends State<Connexion> {
                           // ),
                           boxShadow: [
                             BoxShadow(
-                              color: Colors.black45.withOpacity(0.3),
-                              blurRadius: 10,
-                              offset: Offset(0, 0),
+                              color: Colors.black45.withOpacity(0.1),
+                              blurRadius: 8,
                             ),
                           ],
                         ),
@@ -344,11 +352,11 @@ class _ConnexionState extends State<Connexion> {
                             // Traitement des données ici
                             // }
                           },
-                          child: const Text(
+                          child: Text(
                             'Mot de passe oublié ?',
-                            style: TextStyle(
-                              fontSize: 20,
-                            ),
+                            style: GoogleFonts.poppins(fontSize: 18
+                                // fontWeight: FontWeight.bold,
+                                ),
                           ),
                         ),
                       ),
